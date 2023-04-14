@@ -5,10 +5,21 @@ import Icon from 'react-native-vector-icons/Ionicons';
 const MealsScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
-        <View style={styles.content}>
+     <View style={styles.content}>
+
+      <View style={styles.TopContent}>
             <Text>Meals</Text>
+            
         </View>
-    
+        <View style={styles.MidContent}>
+            <Text>Meals</Text>
+            
+        </View>
+        <View style={styles.BottomContent}>
+            <Text>Meals</Text>
+            
+        </View>
+      </View>
         <View style={styles.navBar}>
             <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Home")}>
                 <Icon name="home-outline" size={30} color="black"  />
