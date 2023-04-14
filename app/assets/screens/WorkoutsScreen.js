@@ -1,12 +1,46 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+
+const onPressMyWorkouts = () => {
+  // Switches to myWorkOuts if not already in it
+  console.log("My workouts pressed.");
+};
+
+const onPressAddWorkouts = () => {
+  console.log("Add workouts pressed.");
+}
+
+const Tab = createBottomTabNavigator();
 
 const WorkoutsScreen = ({navigation}) => {
   return (
+    
     <View style={styles.container}>
-      <View style={styles.content}>
-        <Text>Welcome to Workouts screen!</Text>
+
+      <View flex={1}>
+        <View style={styles.topContent}>
+
+            <Button
+            style = {styles.workoutSelectorButton}
+            onPress = {onPressAddWorkouts}
+            title = "Add Workouts"
+            color = "black"
+            />
+
+            <Button
+            style = {styles.workoutSelectorButton}
+            onPress = {onPressMyWorkouts}
+            title = "My Workouts"
+            color = "black"
+            />
+
+        </View>
+
+        <View style={styles.bottomContent}>
+
+        </View>
       </View>
 
       
@@ -38,7 +72,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  topContent: {
+    flex: 0.4,
+    flexDirection: 'row',
+    backgroundColor: 'pink'
+  },
+  bottomContent: {
+    flex: 0.4,
+    backgroundColor: "magenta"
+  },
+  workoutSelectorButton: {
+    flex: 1,
+    height: 20,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    alignContent: 'center'
+  },
   navBar: {
+    flex: 0.12,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
