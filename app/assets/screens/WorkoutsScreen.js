@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+//import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const onPressMyWorkouts = () => {
@@ -12,7 +12,7 @@ const onPressAddWorkouts = () => {
   console.log("Add workouts pressed.");
 }
 
-const Tab = createBottomTabNavigator();
+//const Tab = createBottomTabNavigator();
 
 const WorkoutsScreen = ({navigation}) => {
   return (
