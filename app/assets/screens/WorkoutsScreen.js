@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button, Pressable } from 'react-native';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
@@ -20,6 +21,7 @@ const WorkOutBox = () => (
     <Text> Wataa </Text>
   </View>
 )
+
 
 
 
@@ -132,8 +134,10 @@ const styles = StyleSheet.create({
   },
   workoutSelectorButton: {
     flex: 1,
+
     borderRadius: 50,
     justifyContent: 'center',
+
     alignItems: 'center',
     backgroundColor: 'crimson'
   },

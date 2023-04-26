@@ -8,33 +8,53 @@ import Icon2 from 'react-native-vector-icons/FontAwesome';
 
 const HomeScreen = ({navigation}) => {
   return (
-    
     <View style={styles.container}>
-      <TouchableOpacity style={styles.hamburgerButton}>
-        <Icon name="menu-outline" size={50} color="black"/>
-      </TouchableOpacity>
+      <View style={styles.content}>
+           <View style={styles.menuBox}>
+            
+           </View>
       <View style={styles.TopContent}>
+      <TouchableOpacity style={styles.hamburgerButton}>
+        <Icon name="menu-outline" size={50}/>
+      </TouchableOpacity>
       <Icon2 name="user-circle-o" size={100} color="blue" marginBottom={20} />
       </View>
       <View style={styles.BottomContent}>
       <Text style={styles.title}>What are we doing today?</Text>
       <ScrollView style={styles.ScrollView}>
         
-        <TouchableOpacity style={styles.WorkoutBox}>
+        <View style={styles.WorkoutBox}>
           <Icon2 name="user-circle-o" size={100} style={styles.WorkoutBoxIcon}/>
           <View style={styles.WorkoutBoxText}>
-            <Text fontWeight='bold'>5km Running</Text>
-            <Text>5km Running</Text>
-          </View>
-          <Icon2 name="user-circle-o" size={70} style={styles.WorkoutBoxEdit}/>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.WorkoutBox}>
-
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.WorkoutBox}>
-
-        </TouchableOpacity>
+            <Text style={styles.titleWorkoutBox}>5km Running</Text>
+            <Text marginTop={5}>5km Running</Text>
+        </View>
+          <TouchableOpacity>
+              <Icon2 name="edit" size={50} style={styles.WorkoutBoxEdit}/>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.WorkoutBox}>
+          <Icon2 name="user-circle-o" size={100} style={styles.WorkoutBoxIcon}/>
+          <View style={styles.WorkoutBoxText}>
+            <Text style={styles.titleWorkoutBox}>5km Running</Text>
+            <Text marginTop={5}>5km Running</Text>
+        </View>
+          <TouchableOpacity>
+              <Icon2 name="edit" size={50} style={styles.WorkoutBoxEdit}/>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.WorkoutBox}>
+          <Icon2 name="user-circle-o" size={100} style={styles.WorkoutBoxIcon}/>
+          <View style={styles.WorkoutBoxText}>
+            <Text style={styles.titleWorkoutBox}>5km Running</Text>
+            <Text marginTop={5}>5km Running</Text>
+        </View>
+          <TouchableOpacity>
+              <Icon2 name="edit" size={50} style={styles.WorkoutBoxEdit}/>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
+      </View>
       </View>
       <View style={styles.navBar}>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Home")}>
@@ -60,7 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   TopContent: {
-    flex: 0.9,
+    flex: 0.7,
     justifyContent: 'center',
     alignItems: 'center',
     justifyContent: 'space-around', 
@@ -69,11 +89,14 @@ const styles = StyleSheet.create({
   BottomContent: {
     flex: 1,
     justifyContent: 'center',
-    
     alignItems: 'center',
     
   },
+  content: {
+      flex: 1,
+  },
   navBar: {
+    flex: 0.12,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -86,7 +109,6 @@ const styles = StyleSheet.create({
   navButton: {
     justifyContent: 'center',
     alignItems: 'center',
-    
   },
   navButtonText: {
     fontSize: 12,
@@ -117,9 +139,8 @@ const styles = StyleSheet.create({
   },
   hamburgerButton: {
     position: 'absolute',
-    //alignItems: 'center',
-    marginLeft: 20,
-    marginTop: 70,
+    left: "5%",
+    top: "25%",
   },
   WorkoutBoxIcon: {
     marginTop: 20,
@@ -130,8 +151,19 @@ const styles = StyleSheet.create({
     fontSize: 15
   },
   WorkoutBoxEdit: {
-    marginTop: 35,
+    marginTop: 50,
   },
+  titleWorkoutBox: {
+    fontWeight: 'bold',
+    fontSize: 19,
+  },
+  /*menuBox:{
+    position: 'absolute',
+    backgroundColor: 'blue',
+    height: '100%',
+    width: '70%',
+    borderRadius: 20,
+  },*/
 });
 
 export default HomeScreen;
