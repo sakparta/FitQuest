@@ -1,22 +1,80 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import { BarChart } from 'react-native-chart-kit';
+
+
+/*
+todo:
+  -Barchartista klikattava
+  -Modalille rullavalikko
+  -navbaarista klikattava kun modal on auki
+*/
+
+const screenWidth = Dimensions.get("window").width;
+
+
+//barchartin data
+const barData = {
+  labels: ['25 Mar', '26 Mar', '27 Mar'],
+  datasets: [
+    {
+      data: [3000, 2200, 2500],
+    },
+  ],
+};
+//barchartin style
+const chartConfig = {
+  backgroundGradientFrom: '#D3D3D3',
+  backgroundGradientTo: '#D3D3D3',
+  fillShadowGradientOpacity: 1,
+  backgroundGradientToOpacity: 0.5,
+  color: (opacity = 6) => `rgba(0, 0, 255, ${opacity})`,
+  strokeWidth: 0, // optional, default 3
+  barPercentage: 1.5,
+  useShadowColorFromDataset: false, // optional
+  barRadius: 5,
+  showBarTops: false, 
+};
+const handleBarPress = (value, dataset) => {
+  console.log('Bar pressed:', value, dataset);
+};
 
 const MealsScreen = ({navigation}) => {
+  const [modalVisible, setIsModalVisible] = useState(false);
   return (
   <View style={styles.container}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert('Modal has been closed.');
+          setModalVisible(!modalVisible);
+        }}>
+      <View style={styles.modalView}>
+        <View style={styles.modalBox}>
+          <View style={styles.modalTop}>
+          <TouchableOpacity onPress={() => setIsModalVisible(false)}>
+          <Icon2 name="close" size={40} style={styles.modalCloseIcon} ></Icon2>
+          </TouchableOpacity>
+          <Text style={styles.modalTitle}>Set calorie goal</Text>
+        </View>
+        </View>
+      </View>
+
+    </Modal>
     <View style={styles.content}>
       <View style={styles.TopContent}>
-           
             <View style={styles.Topbuttons}>
               <View style={styles.leftButton}>
                 <View style={styles.boxText}>
                 <Text style={styles.calorieTop}>2 500 kcal</Text>
                 <Text style={styles.calorieGoalTop}>Daily calorie Goal</Text>
                 </View>
-                <TouchableOpacity style={styles.boxIconEdit}>
-                <Icon2 name="edit" size={40} style={styles.WorkoutBoxEdit}></Icon2>
+                <TouchableOpacity style={styles.boxIconEdit} onPress={() => setIsModalVisible(true)}>
+                <Icon2 name="edit" size={40} style={styles.WorkoutBoxEdit} ></Icon2>
                 </TouchableOpacity>
               </View>
               <View style={styles.rightButton}>
@@ -30,8 +88,18 @@ const MealsScreen = ({navigation}) => {
             </View>
       </View>
         <View style={styles.MidContent}>
-            <Text>Meals</Text>
-            
+          <View style={styles.Chart}>
+          <BarChart
+            data={barData}
+            width={330}
+            height={220}
+            chartConfig={chartConfig}
+            withInnerLines={false}
+            withHorizontalLabels={false}
+            fromZero={true}
+            showBarTops={false}
+          />
+          </View>
         </View>
         <View style={styles.BottomContent}>
             <View style={styles.bottomContentTextleft}>
@@ -100,10 +168,6 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: 'center',
   },
-  header:{
-    flex: 1,
-    backgroundColor: "blue",
-  },
   Topbuttons:{
     width: "95%",
     flex: 1,
@@ -156,11 +220,15 @@ const styles = StyleSheet.create({
   },
   MidContent:{
     flex: 1.5,
-    backgroundColor: "grey",
+    backgroundColor: "#D3D3D3",
     borderRadius: 20,
     width: '95%',
     marginBottom: 10,
-    
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  Chart:{
+    marginTop: 40,
   },
   BottomContent:{
     flex: 0.7,
@@ -199,9 +267,36 @@ const styles = StyleSheet.create({
   calorieText:{
     fontSize: 15,
     marginTop: 10,
-  }
-  
-  
+  },
+  modalView:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalBox:{ 
+   
+    marginTop: 22,
+    backgroundColor: 'grey',
+    height: "60%",
+    width: "95%",
+    borderRadius: 20,
+    borderWidth: 2,
+  },
+  modalTop:{
+    flexDirection: 'row',
+  },
+  modalTitle:{
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginTop: 13,
+    marginLeft: 35,
+    
+  },
+  modalCloseIcon:{
+    marginTop: 10,
+    marginLeft: 20,
+  },
 });
 
 export default MealsScreen;
