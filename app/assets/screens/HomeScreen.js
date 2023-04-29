@@ -2,57 +2,52 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Wrapper } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import WorkoutCard from "../components/WorkoutCard";
+import ProgressCircle from 'react-native-progress-circle'
 
+const EditWorkoutBox = () => {
 
+}
 
 
 const HomeScreen = ({navigation}) => {
+  const progress = 0.5;
+  const size = 200;
   return (
     <View style={styles.container}>
       <View style={styles.content}>
            <View style={styles.menuBox}>
-            
            </View>
       <View style={styles.TopContent}>
       <TouchableOpacity style={styles.hamburgerButton}>
         <Icon name="menu-outline" size={50}/>
       </TouchableOpacity>
-      <Icon2 name="user-circle-o" size={100} color="blue" marginBottom={20} />
+      <TouchableOpacity>
+      <ProgressCircle
+            percent={50}
+            radius={80}
+            borderWidth={17}
+            color="#32CD32"
+            shadowColor="#999"
+            bgColor="#fff"
+        >
+            <Text style={{ fontSize: 25 }}>{'50%'}</Text>
+        </ProgressCircle>
+        </TouchableOpacity>
       </View>
       <View style={styles.BottomContent}>
       <Text style={styles.title}>What are we doing today?</Text>
       <ScrollView style={styles.ScrollView}>
-        
-        <View style={styles.WorkoutBox}>
-          <Icon2 name="user-circle-o" size={100} style={styles.WorkoutBoxIcon}/>
-          <View style={styles.WorkoutBoxText}>
-            <Text style={styles.titleWorkoutBox}>5km Running</Text>
-            <Text marginTop={5}>5km Running</Text>
-        </View>
-          <TouchableOpacity>
-              <Icon2 name="edit" size={50} style={styles.WorkoutBoxEdit}/>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.WorkoutBox}>
-          <Icon2 name="user-circle-o" size={100} style={styles.WorkoutBoxIcon}/>
-          <View style={styles.WorkoutBoxText}>
-            <Text style={styles.titleWorkoutBox}>5km Running</Text>
-            <Text marginTop={5}>5km Running</Text>
-        </View>
-          <TouchableOpacity>
-              <Icon2 name="edit" size={50} style={styles.WorkoutBoxEdit}/>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.WorkoutBox}>
-          <Icon2 name="user-circle-o" size={100} style={styles.WorkoutBoxIcon}/>
-          <View style={styles.WorkoutBoxText}>
-            <Text style={styles.titleWorkoutBox}>5km Running</Text>
-            <Text marginTop={5}>5km Running</Text>
-        </View>
-          <TouchableOpacity>
-              <Icon2 name="edit" size={50} style={styles.WorkoutBoxEdit}/>
-          </TouchableOpacity>
-        </View>
+        <WorkoutCard title="5kmrunning" time="42 minutes" icon="bicycle">
+         
+        </WorkoutCard>
+        <WorkoutCard title="Leg day" time="45 minutes" icon="heartbeat">
+         
+        </WorkoutCard>
+        <WorkoutCard title="rinta" time="45 minutes" icon="futbol-o">
+         
+        </WorkoutCard>
+       
       </ScrollView>
       </View>
       </View>

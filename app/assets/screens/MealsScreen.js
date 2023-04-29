@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Modal} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import { BarChart } from 'react-native-chart-kit';
-
+import {Picker} from '@react-native-picker/picker';
 
 /*
 todo:
@@ -37,12 +37,11 @@ const chartConfig = {
   barRadius: 5,
   showBarTops: false, 
 };
-const handleBarPress = (value, dataset) => {
-  console.log('Bar pressed:', value, dataset);
-};
+
 
 const MealsScreen = ({navigation}) => {
   const [modalVisible, setIsModalVisible] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('java');
   return (
   <View style={styles.container}>
       <Modal
@@ -60,6 +59,32 @@ const MealsScreen = ({navigation}) => {
           <Icon2 name="close" size={40} style={styles.modalCloseIcon} ></Icon2>
           </TouchableOpacity>
           <Text style={styles.modalTitle}>Set calorie goal</Text>
+        </View>
+        <View style={styles.modalBot}>
+          <View style={styles.scrollwheelBox}>
+            <Picker
+              selectedValue={selectedValue}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedValue(itemValue)
+              }>
+              <Picker.Item label="2550" value="2550" />
+              <Picker.Item label="2550" value="2550" />
+              <Picker.Item label="2450" value="2450" />
+              <Picker.Item label="2400" value="2400" />
+              <Picker.Item label="2350" value="2350" />
+              <Picker.Item label="2300" value="2300" />
+              <Picker.Item label="2250" value="2250" />
+              <Picker.Item label="2200" value="2200" />
+              <Picker.Item label="2550" value="2550" />
+              <Picker.Item label="2550" value="2550" />
+              <Picker.Item label="2450" value="2450" />
+              <Picker.Item label="2400" value="2400" />
+              <Picker.Item label="2350" value="2350" />
+              <Picker.Item label="2300" value="2300" />
+              <Picker.Item label="2250" value="2250" />
+              <Picker.Item label="2200" value="2200" />
+            </Picker>
+          </View>
         </View>
         </View>
       </View>
@@ -131,7 +156,8 @@ const MealsScreen = ({navigation}) => {
     </View>
   </View>
   );
-};
+  
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -275,9 +301,8 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalBox:{ 
-   
     marginTop: 22,
-    backgroundColor: 'grey',
+    backgroundColor: '#D3D3D3',
     height: "60%",
     width: "95%",
     borderRadius: 20,
@@ -285,17 +310,30 @@ const styles = StyleSheet.create({
   },
   modalTop:{
     flexDirection: 'row',
+    flex: 1,
+    
   },
   modalTitle:{
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: 'bold',
-    marginTop: 13,
-    marginLeft: 35,
-    
+    marginTop: 12,
+    marginLeft: 40,
   },
   modalCloseIcon:{
     marginTop: 10,
     marginLeft: 20,
+  },
+  modalBot:{
+    flex: 6,
+    
+    alignItems: 'center', 
+  },
+  scrollwheelBox:{
+    width: '60%',
+    height: '60%',
+    backgroundColor: 'grey',
+    borderRadius: 20,
+    marginTop: 40,
   },
 });
 
