@@ -11,8 +11,6 @@ const EditWorkoutBox = () => {
 
 
 const HomeScreen = ({navigation}) => {
-  const progress = 0.5;
-  const size = 200;
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -22,7 +20,7 @@ const HomeScreen = ({navigation}) => {
       <TouchableOpacity style={styles.hamburgerButton}>
         <Icon name="menu-outline" size={50}/>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Progress")}>
       <ProgressCircle
             percent={50}
             radius={80}
