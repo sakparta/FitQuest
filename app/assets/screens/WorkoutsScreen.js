@@ -25,14 +25,10 @@ const WorkOutBox = () => (
 
 
 
-const WorkoutsScreen = ({navigation}) => {
+
   
   const [showWorkoutBoxState, setShowWorkoutBoxState] = useState(false);
-  
-  const onPressWorkoutBox = () => {
-    setShowWorkoutBoxState(!showWorkoutBoxState);
-  }
-  
+
   return (
     
     <View style={styles.container}>
@@ -99,6 +95,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'pink',
   },
   bottomContent: {
+<<<<<<< Updated upstream
+=======
+
+    flex: 3,
+    alignItems: 'center',
+>>>>>>> Stashed changes
     flex: 0.7,
 
   },

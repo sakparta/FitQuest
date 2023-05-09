@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import {StatusBar} from 'expo-status-bar';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import { authentication } from '../firebase/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { useTheme } from '@react-navigation/native';
+
 
 const SignInScreen = (props) => {
 
@@ -85,14 +85,22 @@ const SignInScreen = (props) => {
       <TouchableOpacity style={styles.loginButton} onPress={handleSignin}>
         <Text style={styles.loginButtonText}>Sign In</Text>
       </TouchableOpacity>
-      {errorMessageVisible ? (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={errorMessageVisible}
+        >
           <View style={styles.erroBox}>
+          <TouchableOpacity onPress={() => setErrorMessageVisible(false)}>
+          <Icon2 name="close" size={35} style={styles.modalCloseIcon} ></Icon2>
+          </TouchableOpacity>
+          <View style={styles.textWrapper}>
           <Text style={styles.errorMessage}>
           {errorMessage}
           </Text>
           </View>
-      ) : null}
-    
+          </View>
+      </Modal>
     </View>
 
 
@@ -154,17 +162,27 @@ const styles = StyleSheet.create({
   erroBox:{
     backgroundColor: 'grey',
     borderRadius: 20,
-    marginTop: 40,
-    height: 80,
+    marginTop: 300,
+    marginLeft: 50,
+    height: 150,
     width: 300,
-    alignItems: 'center',
-    justifyContent: 'space-around',
     borderWidth: 2,
   },
   errorMessage:{
     color: '#8B0000',
     fontWeight: 'bold',
-    
+  },
+  modalCloseIcon:{
+    marginLeft: 250,
+    width: 35,
+
+  },
+  textWrapper:{
+    position: 'absolute',
+    alignItems: 'center',
+    width: '70%',
+    marginLeft: 40,
+    marginTop: 60,
   },
  
 });
