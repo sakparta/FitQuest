@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+
 import { View, Text, StyleSheet, TouchableOpacity, Button, Pressable } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
-import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import { ScrollView } from 'react-native';
 
 const onPressMyWorkouts = () => {
@@ -41,32 +41,14 @@ const WorkoutsScreen = ({navigation}) => {
         <View style={styles.topContent}>
 
 
-            <TouchableOpacity style={styles.workoutSelectorButton} onPress={onPressAddWorkouts}>
-            <Icon2 name="plus" size={50} />
-            <Text style={[styles.contentText, {fontSize: 10}]}>Add workouts </Text>
-            </TouchableOpacity>
 
-            <TouchableOpacity style={styles.workoutSelectorButton} onPress={onPressMyWorkouts}>
-            <Icon3 name="collections-bookmark" size={50} />
-            <Text style={[styles.contentText, {fontSize: 10}]}>My workouts </Text>
-            </TouchableOpacity>
 
         </View>
 
         <View style={styles.bottomContent}>
           <ScrollView>
             <View style={styles.workoutBox}>
-              <Icon4 name="weight-lifter" size={80}/>
-              <View>
-              <Text style= {styles.titleText}> workout title </Text>
-              <Text style={styles.descriptionText}> workout description </Text>
 
-              </View>
-              <TouchableOpacity onPress={onPressWorkoutBox}>
-              <Icon name="information-circle-outline" size={60}/>
-              </TouchableOpacity>
-            </View>
-              {showWorkoutBoxState && <WorkOutBox/>}
 
             <View style={styles.workoutBox}>
               <Text> Hello </Text>
@@ -118,19 +100,17 @@ const styles = StyleSheet.create({
   },
   bottomContent: {
     flex: 0.7,
-    backgroundColor: "magenta",
+
   },
   workoutBox: {
     width: "90%",
     height: 140,
     backgroundColor: "grey",
-    borderRadius: 35,
+    borderRadius: 20,
     marginBottom: 30,
     marginLeft: 14,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center',
-    marginTop: 5
   },
   workoutSelectorButton: {
     flex: 1,
@@ -161,12 +141,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: 5,
   },
-  titleText: {
-    fontSize: 18,
-    fontWeight: 'bold'
-  },
-  contentText: {
-    fontSize: 14,
+
     color: 'black',
     fontWeight: 'bold'
   },
@@ -174,10 +149,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 35
-  },
-  descriptionText: {
-    color: '#fff'
-  }
 
   
 });
