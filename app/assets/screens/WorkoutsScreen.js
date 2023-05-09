@@ -1,10 +1,13 @@
+
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import Workouts from './Workouts';
 
+
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
+
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon5 from 'react-native-vector-icons/Entypo';
 
@@ -18,6 +21,7 @@ const onPressMyWorkoutLibrary = () => {
 const onPressAddworkoutsLibrary = () => {
   console.log("Add workouts pressed.");
 };
+
 
 const workouts = [
   { title: 'Strength Training', shortDesc: 'Push, Pull, Legs', desc: 'A Push, Pull, Legs Split is a common workout routine used to target different muscle groups on different days.', icon: 'weight-lifter', id: 1 },
@@ -39,6 +43,8 @@ const handlePressedDays = function (index) {
 
   console.log("selected days: " + selectedDays);
 }
+
+
 
 const WorkoutsScreen = ({ navigation }) => {
 
@@ -81,6 +87,14 @@ const WorkoutsScreen = ({ navigation }) => {
     setWorkoutBoxVisible(!workoutBoxVisible);
   };
 
+const WorkoutsScreen = ({navigation}) => {
+  
+  const [showWorkoutBoxState, setShowWorkoutBoxState] = useState(false);
+  
+  const onPressWorkoutBox = () => {
+    setShowWorkoutBoxState(!showWorkoutBoxState);
+  }
+  
   return (
 
     <View style={styles.container}>
@@ -200,11 +214,13 @@ const WorkoutsScreen = ({ navigation }) => {
             <Text style={[styles.contentText, { fontSize: 10 }]}>My workouts </Text>
           </TouchableOpacity>
 
+
         </View>
 
         <View style={styles.bottomContent}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.workoutBox}>
+
               <Icon4 name="weight-lifter" size={80} />
               <View style={styles.workoutBoxTextView}>
                 <Text style={styles.titleText}> Strength Training </Text>
@@ -214,6 +230,7 @@ const WorkoutsScreen = ({ navigation }) => {
                 <Icon name="information-circle-outline" size={60} />
               </TouchableOpacity>
             </View>
+
 
             <View>
               {workouts.map((workout, id) =>(
@@ -265,8 +282,12 @@ const styles = StyleSheet.create({
     borderBottomColor: '#bdbdc7'
   },
   bottomContent: {
+
     flex: 3,
     alignItems: 'center',
+=======
+    flex: 0.7,
+
   },
   workoutBox: {
     height: 140,
@@ -412,6 +433,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: 5,
   },
+
   titleText: {
     fontSize: 18,
     fontWeight: 'bold',
@@ -428,6 +450,8 @@ const styles = StyleSheet.create({
   },
   contentText: {
     fontSize: 14,
+
+
     color: 'black',
     fontWeight: 'bold',
     textAlign: 'left',
@@ -436,6 +460,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 35
+
   },
   workoutTitle: {
     fontSize: 24,
@@ -447,6 +472,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 15
   },
+
 
 });
 
