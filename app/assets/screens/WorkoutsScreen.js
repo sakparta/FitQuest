@@ -1,10 +1,10 @@
-import React from 'react';
 
 import { View, Text, StyleSheet, TouchableOpacity, Button, Pressable } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
+
 import { ScrollView } from 'react-native';
 
 const onPressMyWorkouts = () => {
@@ -14,10 +14,25 @@ const onPressMyWorkouts = () => {
 
 const onPressAddWorkouts = () => {
   console.log("Add workouts pressed.");
-}
+};
+
+const WorkOutBox = () => (
+  <View>
+    <Text> Wataa </Text>
+  </View>
+)
+
+
 
 
 const WorkoutsScreen = ({navigation}) => {
+  
+  const [showWorkoutBoxState, setShowWorkoutBoxState] = useState(false);
+  
+  const onPressWorkoutBox = () => {
+    setShowWorkoutBoxState(!showWorkoutBoxState);
+  }
+  
   return (
     
     <View style={styles.container}>
@@ -26,25 +41,14 @@ const WorkoutsScreen = ({navigation}) => {
         <View style={styles.topContent}>
 
 
-            <Pressable style={styles.workoutSelectorButton} onPress={onPressAddWorkouts}>
-            <Icon2 name="plus" size={50} />
-            <Text style={[styles.contentText, {fontSize: 10}]}>Add workouts </Text>
-            </Pressable>
 
-            
-
-            <Pressable style={styles.workoutSelectorButton} onPress={onPressAddWorkouts}>
-            <Icon3 name="collections-bookmark" size={50} />
-            <Text style={[styles.contentText, {fontSize: 10}]}>My workouts </Text>
-            </Pressable>
 
         </View>
 
         <View style={styles.bottomContent}>
           <ScrollView>
             <View style={styles.workoutBox}>
-              <Text> Hello </Text>
-            </View>
+
 
             <View style={styles.workoutBox}>
               <Text> Hello </Text>
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
   },
   bottomContent: {
     flex: 0.7,
-    backgroundColor: "magenta"
+
   },
   workoutBox: {
     width: "90%",
@@ -137,8 +141,7 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: 5,
   },
-  contentText: {
-    fontsize: 14,
+
     color: 'black',
     fontWeight: 'bold'
   },
@@ -146,7 +149,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 35
-  }
+
   
 });
 
