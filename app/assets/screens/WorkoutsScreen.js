@@ -1,21 +1,12 @@
-<<<<<<< Updated upstream
-import React, {useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button, Pressable } from 'react-native';
-=======
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import Workouts from './Workouts';
->>>>>>> Stashed changes
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
-<<<<<<< Updated upstream
-import { ScrollView } from 'react-native';
-=======
 import Icon5 from 'react-native-vector-icons/Entypo';
->>>>>>> Stashed changes
 
 let selectedDays = [];
 
@@ -28,25 +19,6 @@ const onPressAddworkoutsLibrary = () => {
   console.log("Add workouts pressed.");
 };
 
-<<<<<<< Updated upstream
-const WorkOutBox = () => (
-  <View>
-    <Text> Wataa </Text>
-  </View>
-)
-
-
-
-
-const WorkoutsScreen = ({navigation}) => {
-  
-  const [showWorkoutBoxState, setShowWorkoutBoxState] = useState(false);
-  
-  const onPressWorkoutBox = () => {
-    setShowWorkoutBoxState(!showWorkoutBoxState);
-  }
-  
-=======
 const workouts = [
   { title: 'Strength Training', shortDesc: 'Push, Pull, Legs', desc: 'A Push, Pull, Legs Split is a common workout routine used to target different muscle groups on different days.', icon: 'weight-lifter', id: 1 },
   { title: 'Cardio Training', shortDesc: 'Running, Cycling, HIIT ', desc: 'running', icon: '', id: 2 },
@@ -109,7 +81,6 @@ const WorkoutsScreen = ({ navigation }) => {
     setWorkoutBoxVisible(!workoutBoxVisible);
   };
 
->>>>>>> Stashed changes
   return (
 
     <View style={styles.container}>
@@ -219,17 +190,6 @@ const WorkoutsScreen = ({ navigation }) => {
         <View style={styles.topContent}>
 
 
-<<<<<<< Updated upstream
-            <TouchableOpacity style={styles.workoutSelectorButton} onPress={onPressAddWorkouts}>
-            <Icon2 name="plus" size={50} />
-            <Text style={[styles.contentText, {fontSize: 10}]}>Add workouts </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.workoutSelectorButton} onPress={onPressMyWorkouts}>
-            <Icon3 name="collections-bookmark" size={50} />
-            <Text style={[styles.contentText, {fontSize: 10}]}>My workouts </Text>
-            </TouchableOpacity>
-=======
           <TouchableOpacity style={styles.workoutSelectorButton} onPress={onPressAddworkoutsLibrary}>
             <Icon2 name="plus" size={50} />
             <Text style={[styles.contentText, { fontSize: 10 }]}>Add workouts </Text>
@@ -239,29 +199,12 @@ const WorkoutsScreen = ({ navigation }) => {
             <Icon3 name="collections-bookmark" size={50} />
             <Text style={[styles.contentText, { fontSize: 10 }]}>My workouts </Text>
           </TouchableOpacity>
->>>>>>> Stashed changes
 
         </View>
 
         <View style={styles.bottomContent}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.workoutBox}>
-<<<<<<< Updated upstream
-              <Icon4 name="weight-lifter" size={80}/>
-              <View>
-              <Text style= {styles.titleText}> workout title </Text>
-              <Text style={styles.descriptionText}> workout description </Text>
-
-              </View>
-              <TouchableOpacity onPress={onPressWorkoutBox}>
-              <Icon name="information-circle-outline" size={60}/>
-              </TouchableOpacity>
-            </View>
-              {showWorkoutBoxState && <WorkOutBox/>}
-
-            <View style={styles.workoutBox}>
-              <Text> Hello </Text>
-=======
               <Icon4 name="weight-lifter" size={80} />
               <View style={styles.workoutBoxTextView}>
                 <Text style={styles.titleText}> Strength Training </Text>
@@ -270,7 +213,6 @@ const WorkoutsScreen = ({ navigation }) => {
               <TouchableOpacity onPress={onPressWorkoutBox}>
                 <Icon name="information-circle-outline" size={60} />
               </TouchableOpacity>
->>>>>>> Stashed changes
             </View>
 
             <View>
@@ -323,31 +265,11 @@ const styles = StyleSheet.create({
     borderBottomColor: '#bdbdc7'
   },
   bottomContent: {
-<<<<<<< Updated upstream
-    flex: 0.7,
-    backgroundColor: "magenta",
-=======
     flex: 3,
     alignItems: 'center',
->>>>>>> Stashed changes
   },
   workoutBox: {
     height: 140,
-<<<<<<< Updated upstream
-    backgroundColor: "grey",
-    borderRadius: 35,
-    marginBottom: 30,
-    marginLeft: 14,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    marginTop: 5
-  },
-  workoutSelectorButton: {
-    flex: 1,
-
-    borderRadius: 50,
-=======
     width: 350,
     backgroundColor: "#bdbdc7",
     borderRadius: 35,
@@ -432,9 +354,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 80,
     borderRadius: 60,
->>>>>>> Stashed changes
     justifyContent: 'center',
-
     alignItems: 'center',
     backgroundColor: '#bdbdc7',
     elevation: 5,
@@ -494,9 +414,6 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 18,
-<<<<<<< Updated upstream
-    fontWeight: 'bold'
-=======
     fontWeight: 'bold',
     paddingBottom: 2,
     paddingTop: 8
@@ -508,7 +425,6 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 0 },
     textShadowRadius: 4
 
->>>>>>> Stashed changes
   },
   contentText: {
     fontSize: 14,
@@ -521,13 +437,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 35
   },
-<<<<<<< Updated upstream
-  descriptionText: {
-    color: '#fff'
-  }
-
-  
-=======
   workoutTitle: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -539,7 +448,6 @@ const styles = StyleSheet.create({
     fontSize: 15
   },
 
->>>>>>> Stashed changes
 });
 
 export default WorkoutsScreen;
