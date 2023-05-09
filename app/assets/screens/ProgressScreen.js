@@ -63,11 +63,9 @@ const HomeScreen = ({navigation}) => {
                     <Text style={styles.EndWeightText}>80kg</Text>
             </View>
             <View style={styles.bottomContentButtons}>
-
                 <TouchableOpacity style={styles.bottomContentAddButton}>
                     <Text style={styles.bottomContentButtonText}> ADD GOAL</Text>
                 </TouchableOpacity>
-
                 <TouchableOpacity style={styles.bottomContentEditButton}>
                    <Text  style={styles.bottomContentButtonText}> EDIT GOAL</Text>
                 </TouchableOpacity>
@@ -77,7 +75,7 @@ const HomeScreen = ({navigation}) => {
       </View>
       <View style={styles.navBar}>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Home")}>
-          <Icon name="home" size={40} color="black"  />
+          <Icon name="home-outline" size={30} color="black"  />
           <Text style={styles.navButtonText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Workouts")}>

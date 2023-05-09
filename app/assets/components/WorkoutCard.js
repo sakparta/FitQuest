@@ -32,11 +32,13 @@ const styles = StyleSheet.create({
       },
       WorkoutBoxIcon: {
         marginTop: 20,
+        
       },
     WorkoutBoxText:{
         marginTop: 30,
         fontWeight: 'bold',
-        fontSize: 15
+        fontSize: 15,
+        
       },
       WorkoutBoxEdit: {
         marginTop: 50,

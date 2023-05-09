@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import { BarChart } from 'react-native-chart-kit';
 import {Picker} from '@react-native-picker/picker';
-
+import { db } from '../firebase/firebase';
 /*
 todo:
   -Barchartista klikattava
@@ -13,6 +13,11 @@ todo:
 */
 
 const screenWidth = Dimensions.get("window").width;
+
+const handleCalorieGoal = () => {
+    
+}
+
 
 
 //barchartin data
@@ -85,10 +90,12 @@ const MealsScreen = ({navigation}) => {
               <Picker.Item label="2200" value="2200" />
             </Picker>
           </View>
+          <TouchableOpacity style={styles.modalAccept} onPress={() => setIsModalVisible(false)}>
+              <Text style={styles.modalAcceptButtonText}>Confirm</Text>
+          </TouchableOpacity>
         </View>
         </View>
       </View>
-
     </Modal>
     <View style={styles.content}>
       <View style={styles.TopContent}>
@@ -302,7 +309,7 @@ const styles = StyleSheet.create({
   },
   modalBox:{ 
     marginTop: 22,
-    backgroundColor: '#D3D3D3',
+    backgroundColor: 'grey',
     height: "60%",
     width: "95%",
     borderRadius: 20,
@@ -331,9 +338,24 @@ const styles = StyleSheet.create({
   scrollwheelBox:{
     width: '60%',
     height: '60%',
-    backgroundColor: 'grey',
+    backgroundColor: '#D3D3D3',
     borderRadius: 20,
     marginTop: 40,
+  },
+  modalAccept:{
+    height: 50,
+    width: 150,
+    borderRadius: 20,
+    backgroundColor: '#D3D3D3',
+    marginTop: 30,
+    alignItems: 'center',
+    borderWidth: 2,
+  },
+  modalAcceptButtonText:{
+    marginTop: 12,
+    fontWeight: 'bold',
+    fontSize: 18,
+
   },
 });
 

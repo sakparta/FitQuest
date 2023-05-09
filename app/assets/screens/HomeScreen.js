@@ -5,6 +5,7 @@ import Icon2 from 'react-native-vector-icons/FontAwesome';
 import WorkoutCard from "../components/WorkoutCard";
 import ProgressCircle from 'react-native-progress-circle'
 
+
 const EditWorkoutBox = () => {
 
 }
@@ -70,7 +71,7 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   TopContent: {
     flex: 0.7,

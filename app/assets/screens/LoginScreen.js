@@ -1,21 +1,34 @@
 import React, { useState } from 'react';
 import {StatusBar} from 'expo-status-bar';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import Icon2 from 'react-native-vector-icons/Ionicons';
+import { authentication } from '../firebase/firebase';
+import {signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginScreen = ({navigation}) => {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-  
-  
+
+
 
   const handleLogin = () => {
     // Handle login logic here
-    console.log(`Email: ${email}, Password: ${password}`);
-    navigation.navigate("Home")
+    
+    signInWithEmailAndPassword(authentication, email, password)
+    .then((re)=>{
+      setIsSignedIn(true)
+      navigation.navigate("Home")
+    })
+    .catch((re)=>{
+      console.log(re.message);
+      
+    })
   };
+ 
 
   const handleForgotPassword = () => {
     // Handle forgot password logic here
@@ -25,9 +38,10 @@ const LoginScreen = ({navigation}) => {
   return (
     
     <View style={styles.container}>
-      <Icon name="user-circle-o" size={100} color="blue" style={styles.icon} />
+      <Image source={require('../components/Logo.png')}  style={styles.icon}></Image>
+      
       <View style={styles.inputContainer}>
-        <Icon name="envelope" size={20} color="gray" style={styles.inputIcon} />
+        <Icon name="envelope" size={20} color="black" style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -36,7 +50,7 @@ const LoginScreen = ({navigation}) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Icon name="lock" size={20} color="gray" style={styles.inputIcon} />
+        <Icon name="lock" size={20} color="black" style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -52,10 +66,11 @@ const LoginScreen = ({navigation}) => {
         <Text style={styles.loginButtonText}>Login</Text>
       </TouchableOpacity>
       <Text style={styles.Noaccount}>
-      Don't have an account?
+       Don't have an account?
       </Text>
-      <Text style={styles.forgotPassword}>
-      Create new account
+
+      <Text style={styles.forgotPassword} onPress={() => navigation.navigate("SignIn")}>
+        Create new account
       </Text>
     </View>
 
@@ -65,13 +80,16 @@ const LoginScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "white",
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
   },
   icon: {
     marginBottom: 50,
+    width: 260,
+    height: 240,
+    borderWidth: 5,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -88,16 +106,17 @@ const styles = StyleSheet.create({
     height: '100%',
     marginLeft: 10,
     fontSize: 16,
+    
   },
   inputIcon: {
     marginRight: 10,
   },
   forgotPassword: {
-    color: 'blue',
+    color: '#007FFF',
     fontSize: 16,
   },
   loginButton: {
-    backgroundColor: 'blue',
+    backgroundColor: '#007FFF',
     width: '80%',
     height: 50,
     marginTop: 20,
@@ -113,7 +132,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     marginTop: 30,
-  }
+  },
 });
 
 export default LoginScreen;
