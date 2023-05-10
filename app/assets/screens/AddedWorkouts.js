@@ -158,6 +158,7 @@ workoutInfoIcon: {
   },
   workoutChart: {
     height: "87%",
+    width: 320,
     overflow: 'hidden',
     padding: 15,
     borderWidth: 1,

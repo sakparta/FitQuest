@@ -226,7 +226,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'black',
   },
   workoutChart: {
-    height: "70%",
+    height: '70%',
+    width: 320,
     overflow: 'hidden',
     padding: 15,
     borderWidth: 1,
