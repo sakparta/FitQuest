@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
-import { WorkoutArray, strengthProgram, } from '../components/WorkoutList';
+import { WorkoutArray, strengthProgram, } from './WorkoutList';
 
 
 import Icon from 'react-native-vector-icons/Ionicons';

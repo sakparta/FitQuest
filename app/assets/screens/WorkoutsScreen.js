@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
-import Workouts from './Workouts';
+import Workouts from '../components/Workouts';
 import { workoutArray } from '../components/WorkoutList';
 
 
