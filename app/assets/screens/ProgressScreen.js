@@ -33,10 +33,10 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.TopContent}>
             <ProgressCircle
             percent={50}
-            radius={60}
-            borderWidth={17}
-            color="#32CD32"
-            shadowColor="#999"
+            radius={70}
+            borderWidth={30}
+            color="#10e410"
+            shadowColor="#d6d4d4"
             bgColor="#fff"
             >
             <Text style={{ fontSize: 25 }}>{'50%'}</Text>
