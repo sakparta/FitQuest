@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {StatusBar} from 'expo-status-bar';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Image, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import { authentication } from '../firebase/firebase';
@@ -13,7 +13,8 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessageVisible, setErrorMessageVisible] = useState(false);
 
   const handleLogin = () => {
     // Handle login logic here
@@ -24,8 +25,22 @@ const LoginScreen = ({navigation}) => {
       navigation.navigate("Home")
     })
     .catch((re)=>{
-      console.log(re.message);
-      
+      if(re.code === 'auth/missing-password'){
+        message = 'Wrong password'
+      }
+      else if(re.code === 'auth/invalid-email'){
+         message = 'Email is invalid!'
+         
+      }else if(re.code === 'auth/wrong-password'){
+        message = 'Wrong password'
+      }else if("auth/user-not-found"){
+        message = "Wrong email/password"
+      }
+      else{
+         message = re.code
+      }
+      setErrorMessage(message)
+      setErrorMessageVisible(true)
     })
   };
  
@@ -72,6 +87,23 @@ const LoginScreen = ({navigation}) => {
       <Text style={styles.forgotPassword} onPress={() => navigation.navigate("SignIn")}>
         Create new account
       </Text>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={errorMessageVisible}
+        >
+          <View style={styles.erroBox}>
+          <TouchableOpacity onPress={() => setErrorMessageVisible(false)}>
+          <Icon2 name="close" size={35} style={styles.modalCloseIcon} ></Icon2>
+          </TouchableOpacity>
+          <View style={styles.textWrapper}>
+          <Text style={styles.errorMessage}>
+          {errorMessage}
+          </Text>
+          </View>
+          </View>
+      </Modal>
     </View>
 
 
@@ -132,6 +164,31 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     marginTop: 30,
+  }, 
+  erroBox:{
+    backgroundColor: 'grey',
+    borderRadius: 20,
+    marginTop: 300,
+    marginLeft: 50,
+    height: 150,
+    width: 300,
+    borderWidth: 2,
+  },
+  errorMessage:{
+    color: '#8B0000',
+    fontWeight: 'bold',
+  },
+  modalCloseIcon:{
+    marginLeft: 250,
+    width: 35,
+
+  },
+  textWrapper:{
+    position: 'absolute',
+    alignItems: 'center',
+    width: '70%',
+    marginLeft: 40,
+    marginTop: 60,
   },
 });
 
