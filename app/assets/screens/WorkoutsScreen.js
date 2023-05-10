@@ -16,7 +16,6 @@ const onPressAddworkoutsLibrary = () => {
 };
 
 const WorkoutsScreen = ({ navigation, onPressReturn, onPressAddWorkout, workoutBoxVisible, onPressDay }) => {
-
   return (
 
     <View style={styles.container}>
