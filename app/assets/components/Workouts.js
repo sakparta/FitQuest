@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
-import { WorkoutArray, strengthProgram, } from './WorkoutList';
 
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
-import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon5 from 'react-native-vector-icons/Entypo';
 
@@ -142,7 +140,7 @@ const Workouts = ({title, desc, shortDesc, icon, id, content}) =>  {
 
         <View style={styles.workoutBox}>
           <View style={styles.iconBox}>
-            <Icon name={icon} size={80} />
+            <Icon4 name={icon} size={70} />
           </View>
           <View style={styles.workoutBoxTextView}>
             <Text style={styles.titleText}>{title}</Text>

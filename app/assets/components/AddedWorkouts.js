@@ -72,7 +72,7 @@ const Workouts = ({title, desc, shortDesc, icon, content, id}) =>  {
 
         <View style={styles.workoutBox}>
             <View style={styles.iconBox}>
-                <Icon name={icon} size={80} />    
+                <Icon4 name={icon} size={70} />    
             </View>
           <View style={styles.workoutBoxTextView}>
             <Text style={styles.titleText}>{title}</Text>
