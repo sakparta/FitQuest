@@ -87,14 +87,10 @@ const WorkoutsScreen = ({ navigation }) => {
     setWorkoutBoxVisible(!workoutBoxVisible);
   };
 
-const WorkoutsScreen = ({navigation}) => {
+
   
   const [showWorkoutBoxState, setShowWorkoutBoxState] = useState(false);
-  
-  const onPressWorkoutBox = () => {
-    setShowWorkoutBoxState(!showWorkoutBoxState);
-  }
-  
+
   return (
 
     <View style={styles.container}>
@@ -283,9 +279,9 @@ const styles = StyleSheet.create({
   },
   bottomContent: {
 
+
     flex: 3,
     alignItems: 'center',
-=======
     flex: 0.7,
 
   },
