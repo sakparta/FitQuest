@@ -23,14 +23,14 @@ const HomeScreen = ({navigation}) => {
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("Progress")}>
       <ProgressCircle
-            percent={50}
+            percent={0}
             radius={80}
             borderWidth={17}
             color="#32CD32"
             shadowColor="#999"
             bgColor="#fff"
         >
-            <Text style={{ fontSize: 25 }}>{'50%'}</Text>
+            <Text style={{ fontSize: 25 }}>{"0%"}</Text>
         </ProgressCircle>
         </TouchableOpacity>
       </View>

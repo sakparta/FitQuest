@@ -46,7 +46,7 @@ const chartConfig = {
 
 const MealsScreen = ({navigation}) => {
   const [modalVisible, setIsModalVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('java');
+  const [selectedValue, setSelectedValue] = useState('');
   return (
   <View style={styles.container}>
       <Modal
