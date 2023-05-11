@@ -10,14 +10,7 @@ import * as Progress from 'react-native-progress';
 
 
 
-const barData = {
-    labels: ['Start', 'Week 1', 'week 2', 'week 3'],
-    datasets: [
-      {
-        data: [100, 98, 96, 95],
-      },
-    ],
-  };
+
   //barchartin style
   const chartConfig = {
     backgroundGradientFrom: 'grey',
@@ -35,26 +28,64 @@ const barData = {
 
 const HomeScreen = ({navigation}) => {
   
+ 
   const [modalVisible, setIsModalVisible] = useState(false);
   const [selectedValue, setSelectedValue] = useState('');
 
   const [startWeight, setStartWeight] = useState('');
   const [weightGoal, setWeightGoal] = useState('');
   const [goalTypeVisible, setGoalTypeVisible] = useState(true);
-  const [progress, setProgress] = useState('');
+  const [progress, setProgress] = useState(0);
   const [goalSet, setGoalSet] = useState(false)
 
-  const [weekOneWeight, setWeekOneWeight] = useState('');
-
+  const [weekOneWeight, setWeekOneWeight] = useState(0);
+  const [weekTwoWeight, setWeekTwoWeight] = useState(0);
+  const [weekThreeWeight, setWeekThreeWeight] = useState(0);
+ 
   const [editModalVisible, setEditModalVisible] = useState(false);
+
+  const barData = {
+    labels: ['Start', 'Week 1', 'week 2', 'week 3'],
+    datasets: [
+      {
+        data: [startWeight, weekOneWeight, weekTwoWeight, weekThreeWeight],
+      },
+    ],
+  };
+
+
+
 
   const confrimGoal = () =>{
     setIsModalVisible(false)     
   }
+
   const confirmEdit = () =>{
+   
+    if(weekOneWeight===0 && weekTwoWeight===0 && weekThreeWeight===0){
+      console.log("Error")
+      currentWeight = startWeigh
+    }else if(weekOneWeight>0 && weekTwoWeight===0 && weekThreeWeight===0){
+      currentWeight = weekOneWeight
+    }else if(weekTwoWeight>0 && weekThreeWeight===0){
+      currentWeight = weekTwoWeight
+    }else if(weekThreeWeight>0 ){
+      currentWeight = weekThreeWeight
+    }else{
+      console.log("error")
+      currentWeight = 0
+    }
+   prog = (startWeight-currentWeight)/(startWeight-weightGoal)
+   setProgress(prog)
+   setEditModalVisible(false)
+  }
+
+
+  const cancelEdit = () =>{
+    setWeekOneWeight(0)
+    setWeekTwoWeight(0)
+    setWeekThreeWeight(0)
     setEditModalVisible(false)
-    asd = (startWeight - weekOneWeight)/startWeight;
-    setProgress(asd)
   }
   const goalTypeSelection = (value) =>{
     if(value === 'Weight'){
@@ -138,7 +169,7 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.modalView}>
         <View style={styles.modalBox}>
           <View style={styles.modalTop}>
-          <TouchableOpacity onPress={() => setEditModalVisible(false)}>
+          <TouchableOpacity onPress={() => cancelEdit()}>
           <Icon2 name="close" size={40} style={styles.modalCloseIcon} ></Icon2>
           </TouchableOpacity>
           <Text style={styles.modalTitle}>EDIT GOAL</Text>
@@ -157,6 +188,34 @@ const HomeScreen = ({navigation}) => {
         >
         </TextInput>
         </View>
+
+        <View style={styles.inputContainer}>
+        <Text style={styles.textBoxText}>Week 2 weigh (kg):</Text>
+        <TextInput
+         style={styles.input}
+         placeholder=""
+         value={weekTwoWeight}
+         onChangeText={setWeekTwoWeight}
+         secureTextEntry={false}
+         keyboardType='numeric'
+        >
+        </TextInput>
+        </View>
+
+
+        <View style={styles.inputContainer}>
+        <Text style={styles.textBoxText}>Week 3 weigh (kg):</Text>
+        <TextInput
+         style={styles.input}
+         placeholder=""
+         value={weekThreeWeight}
+         onChangeText={setWeekThreeWeight}
+         secureTextEntry={false}
+         keyboardType='numeric'
+        >
+        </TextInput>
+        </View>
+
         </View>
           
           <TouchableOpacity style={styles.modalAccept} onPress={() => confirmEdit()}>
@@ -169,35 +228,17 @@ const HomeScreen = ({navigation}) => {
     </Modal>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <View style={styles.content}>
         <View style={styles.TopContent}>
             <ProgressCircle
-
             percent={progress*100}
-
             radius={70}
             borderWidth={30}
             color="#10e410"
             shadowColor="#d6d4d4"
             bgColor="#fff"
             >
-            <Text style={{ fontSize: 25 }}>{progress*100 + "%"}</Text>
+            <Text style={{ fontSize: 25 }}>{(progress*100).toFixed(0) + "%"}</Text>
         </ProgressCircle>
         </View>
         <Text style={styles.goalText}>Weight loss goal: {weightGoal} </Text>
@@ -432,6 +473,7 @@ const styles = StyleSheet.create({
         marginRight: 20,
         flex: 0.7,
         borderWidth: 2,
+        paddingLeft: 5,
       },
       inputContainer:{
         flexDirection: 'row',
