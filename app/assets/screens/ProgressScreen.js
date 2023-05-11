@@ -188,7 +188,9 @@ const HomeScreen = ({navigation}) => {
       <View style={styles.content}>
         <View style={styles.TopContent}>
             <ProgressCircle
+
             percent={progress*100}
+
             radius={70}
             borderWidth={30}
             color="#10e410"

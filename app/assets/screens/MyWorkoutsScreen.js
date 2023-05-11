@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
-import Workouts from '../components/Workouts';
+import Workouts from '../components/AddedWorkouts';
 import { workoutArray } from '../components/WorkoutList';
 
 
@@ -11,11 +11,26 @@ import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon5 from 'react-native-vector-icons/Entypo';
 
-const onPressAddworkoutsLibrary = () => {
-  console.log("Add workouts pressed.");
+
+const onPressMyWorkoutLibrary = () => {
+  console.log("My workouts pressed.");
 };
 
-const WorkoutsScreen = ({ navigation, onPressReturn, onPressAddWorkout, workoutBoxVisible, onPressDay }) => {
+const onPressAddworkoutsLibrary = () => {
+  console.log("Add workouts pressed.");
+  // Switches to Add workouts if not already in it
+};
+
+const MyWorkoutsScreen = ({ navigation, onPressReturn, onPressRemoveWorkout, workoutBoxVisible }) => {
+
+  //tab logic
+  const [WorkoutLibrary, setWorkoutlibrary] = useState(true);
+
+
+
+  // weekday selector logic
+  const [dayButtonToggled, setDayButtonToggled] = useState([]);
+
   return (
 
     <View style={styles.container}>
@@ -23,11 +38,11 @@ const WorkoutsScreen = ({ navigation, onPressReturn, onPressAddWorkout, workoutB
 
         <Text style={styles.screenTitle}>Workouts</Text>
         <View style={styles.topContent}>
-          <TouchableOpacity style={styles.workoutSelectorButton} onPress={onPressAddworkoutsLibrary}>
+          <TouchableOpacity style={[styles.workoutSelectorButton, { backgroundColor: '#e6e6e7' }]} onPress={() => navigation.navigate("Workouts")}>
             <Icon2 name="plus" size={50} />
             <Text style={[styles.contentText, { fontSize: 10 }]}>Add workouts </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={[styles.workoutSelectorButton, { backgroundColor: '#e6e6e7' }]} onPress={() => navigation.navigate("MyWorkouts")}>
+          <TouchableOpacity style={styles.workoutSelectorButton} onPress={onPressMyWorkoutLibrary}>
             <Icon3 name="collections-bookmark" size={50} />
             <Text style={[styles.contentText, { fontSize: 10 }]}>My workouts </Text>
           </TouchableOpacity>
@@ -52,8 +67,7 @@ const WorkoutsScreen = ({ navigation, onPressReturn, onPressAddWorkout, workoutB
       </View>
 
 
-
-        {/* Nav Bar */}
+                {/* Nav Bar */}
       <View style={styles.navBar}>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Home")}>
           <Icon name="home-outline" size={30} color="black" />
@@ -114,6 +128,7 @@ const styles = StyleSheet.create({
     height: 80,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
+
   },
   navButton: {
     justifyContent: 'center',
@@ -161,4 +176,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default WorkoutsScreen;
+export default MyWorkoutsScreen;

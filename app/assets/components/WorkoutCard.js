@@ -21,14 +21,18 @@ const WorkoutCard = ({title, time, icon}) => {
 
 const styles = StyleSheet.create({
     WorkoutBox: {
-        width: "90%",
-        height: 140,
-        backgroundColor: "grey",
-        borderRadius: 20,
-        marginBottom: 30,
-        marginLeft: 14,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
+      height: 140,
+      width: 350,
+      backgroundColor: "#bdbdc7",
+      borderRadius: 35,
+      margin: 10,
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: '#bdbdc7',
+      elevation: 10,
+      shadowColor: '#505050',
       },
       WorkoutBoxIcon: {
         marginTop: 20,

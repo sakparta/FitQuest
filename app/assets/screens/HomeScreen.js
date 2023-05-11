@@ -25,9 +25,9 @@ const HomeScreen = ({navigation}) => {
       <ProgressCircle
             percent={0}
             radius={80}
-            borderWidth={17}
-            color="#32CD32"
-            shadowColor="#999"
+            borderWidth={35}
+            color="#10e410"
+            shadowColor="#d6d4d4"
             bgColor="#fff"
         >
             <Text style={{ fontSize: 25 }}>{"0%"}</Text>
@@ -74,14 +74,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   TopContent: {
-    flex: 0.7,
+    flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
     justifyContent: 'space-around', 
     //backgroundColor: "grey",
   },
   BottomContent: {
-    flex: 1,
+    flex: 5,
     justifyContent: 'center',
     alignItems: 'center',
     
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
       flex: 1,
   },
   navBar: {
-    flex: 0.12,
+    flex: 0.1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -98,7 +98,6 @@ const styles = StyleSheet.create({
     height: 80,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
-    
   },
   navButton: {
     justifyContent: 'center',
@@ -134,7 +133,7 @@ const styles = StyleSheet.create({
   hamburgerButton: {
     position: 'absolute',
     left: "5%",
-    top: "25%",
+    top: "20%",
   },
   WorkoutBoxIcon: {
     marginTop: 20,
