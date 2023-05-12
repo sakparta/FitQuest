@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/Entypo';
@@ -6,7 +6,7 @@ import Icon3 from 'react-native-vector-icons/FontAwesome';
 import ProgressCircle from 'react-native-progress-circle'
 import { LineChart } from 'react-native-chart-kit';
 import * as Progress from 'react-native-progress';
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 
 //Linechartin style
 const chartConfig = {
@@ -29,218 +29,215 @@ const chartConfig = {
 const HomeScreen = ({ navigation }) => {
 
 
-    const [modalVisible, setIsModalVisible] = useState(false);
-    const [selectedValue, setSelectedValue] = useState('');
-  
-    const [startWeight, setStartWeight] = useState(0);
-    const [weightGoal, setWeightGoal] = useState('');
-    const [goalTypeVisible, setGoalTypeVisible] = useState(true);
-    const [progress, setProgress] = useState(0);
-    
-  
-    const [weekOneWeight, setWeekOneWeight] = useState(0);
-    const [weekTwoWeight, setWeekTwoWeight] = useState(0);
-    const [weekThreeWeight, setWeekThreeWeight] = useState(0);
-   
-    const [editModalVisible, setEditModalVisible] = useState(false);
-  
-    const Data = {
-      labels: ['Start', 'Week 1', 'week 2', 'week 3'],
-      datasets: [
-        {
-          data: [startWeight, weekOneWeight, weekTwoWeight, weekThreeWeight],
-        },
-      ],
-    };
+  const [modalVisible, setIsModalVisible] = useState(false);
+  const [selectedValue, setSelectedValue] = useState('');
 
-    const confrimGoal = () =>{
-        setIsModalVisible(false)     
-      }
-    
-      const confirmEdit = () =>{
-       
-        if(weekOneWeight===0 && weekTwoWeight===0 && weekThreeWeight===0){
-          console.log("Error")
-          currentWeight = startWeight
-        }else if(weekOneWeight>0 && weekTwoWeight===0 && weekThreeWeight===0){
-          currentWeight = weekOneWeight
-        }else if(weekTwoWeight>0 && weekThreeWeight===0){
-          currentWeight = weekTwoWeight
-        }else if(weekThreeWeight>0 ){
-          currentWeight = weekThreeWeight
-        }else{
-          console.log("error")
-          currentWeight = 0
-        }
-       prog = (startWeight-currentWeight)/(startWeight-weightGoal)
-       setProgress(prog)
-       setEditModalVisible(false)
-      }
-    
-    
-      const cancelEdit = () =>{
-        setWeekOneWeight(0)
-        setWeekTwoWeight(0)
-        setWeekThreeWeight(0)
-        setEditModalVisible(false)
-      }
-      const goalTypeSelection = (value) =>{
-        if(value === 'Weight'){
-          setGoalTypeVisible(true)
-        }
-      }
+  const [startWeight, setStartWeight] = useState(0);
+  const [weightGoal, setWeightGoal] = useState('');
+  const [goalTypeVisible, setGoalTypeVisible] = useState(true);
+  const [progress, setProgress] = useState(0);
+
+
+  const [weekOneWeight, setWeekOneWeight] = useState(0);
+  const [weekTwoWeight, setWeekTwoWeight] = useState(0);
+  const [weekThreeWeight, setWeekThreeWeight] = useState(0);
+
+  const [editModalVisible, setEditModalVisible] = useState(false);
+
+  const Data = {
+    labels: ['Start', 'Week 1', 'week 2', 'week 3'],
+    datasets: [
+      {
+        data: [startWeight, weekOneWeight, weekTwoWeight, weekThreeWeight],
+      },
+    ],
+  };
+
+  const confrimGoal = () => {
+    setIsModalVisible(false)
+  }
+
+  const confirmEdit = () => {
+
+    if (weekOneWeight === 0 && weekTwoWeight === 0 && weekThreeWeight === 0) {
+      console.log("Error")
+      currentWeight = startWeight
+    } else if (weekOneWeight > 0 && weekTwoWeight === 0 && weekThreeWeight === 0) {
+      currentWeight = weekOneWeight
+    } else if (weekTwoWeight > 0 && weekThreeWeight === 0) {
+      currentWeight = weekTwoWeight
+    } else if (weekThreeWeight > 0) {
+      currentWeight = weekThreeWeight
+    } else {
+      console.log("error")
+      currentWeight = 0
+    }
+    prog = (startWeight - currentWeight) / (startWeight - weightGoal)
+    setProgress(prog)
+    setEditModalVisible(false)
+  }
+
+
+  const cancelEdit = () => {
+    setWeekOneWeight(0)
+    setWeekTwoWeight(0)
+    setWeekThreeWeight(0)
+    setEditModalVisible(false)
+  }
+  const goalTypeSelection = (value) => {
+    if (value === 'Weight') {
+      setGoalTypeVisible(true)
+    }
+  }
 
 
   return (
     <View style={styles.container}>
 
 
-<Modal
+      <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        >
-      <View style={styles.modalView}>
-        <View style={styles.modalBox}>
-          <View style={styles.modalTop}>
-          <TouchableOpacity onPress={() => setIsModalVisible(false)}>
-          <Icon3 name="close" size={40} style={styles.modalCloseIcon} ></Icon3>
-          </TouchableOpacity>
-          <Text style={styles.modalTitle}>ADD GOAL</Text>
-        </View>
-        <View style={styles.pickerWrapper}>
-        <Text style={styles.goalTypeText}>Goal type:</Text>
-        <Picker
-            style={styles.picker}
-           
-            selectedValue={selectedValue}
-            onValueChange={(itemValue, itemIndex) =>{
-              setSelectedValue(itemValue)
-              goalTypeSelection(itemValue)
-            }   
-        }>
-            <Picker.Item label="Weight" value="Weight" />
+      >
+        <View style={styles.modalView}>
+          <View style={styles.modalBox}>
+            <View style={styles.modalTop}>
+              <Text style={styles.modalTitle}>Add Goal</Text>
+              <TouchableOpacity onPress={() => setIsModalVisible(false)}>
+                <Icon3 name="close" size={40} style={styles.modalCloseIcon} color={'#505050'} ></Icon3>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.pickerWrapper}>
+              <Text style={styles.goalTypeText}>Goal type:</Text>
+              <Picker
+                style={styles.picker}
 
-        </Picker>
-        </View>
-        <View style={styles.modalBot}>
-          {goalTypeVisible ? (
-          <View style={styles.goalBox}>
-            <View style={styles.inputContainer}>
-                <Text style={styles.textBoxText}>Current weight (kg):</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder=""
-                  value={startWeight}
-                  onChangeText={setStartWeight}
-                  secureTextEntry={false}
-                  keyboardType='numeric'
-                />
-              </View>
-              <View style={styles.inputContainer}>
-              <Text style={styles.textBoxText}>Goal (kg):</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder=""
-                  value={weightGoal}
-                  onChangeText={setWeightGoal}
-                  secureTextEntry={false}
-                  keyboardType='numeric'
-                />
-              </View>
-              
+                selectedValue={selectedValue}
+                onValueChange={(itemValue, itemIndex) => {
+                  setSelectedValue(itemValue)
+                  goalTypeSelection(itemValue)
+                }
+                }>
+                <Picker.Item label="Weight" value="Weight" />
+
+              </Picker>
+            </View>
+            <View style={styles.modalBot}>
+              {goalTypeVisible ? (
+                <View style={styles.goalBox}>
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.textBoxText}>Current weight (kg):</Text>
+                    <TextInput
+                      style={styles.input}
+                      placeholder=""
+                      value={startWeight}
+                      onChangeText={setStartWeight}
+                      secureTextEntry={false}
+                      keyboardType='numeric'
+                    />
+                  </View>
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.textBoxText}>Goal (kg):</Text>
+                    <TextInput
+                      style={styles.input}
+                      placeholder=""
+                      value={weightGoal}
+                      onChangeText={setWeightGoal}
+                      secureTextEntry={false}
+                      keyboardType='numeric'
+                    />
+                  </View>
+
+                </View>
+              ) : null}
+              {goalTypeVisible ? (
+                <TouchableOpacity style={styles.modalAccept} onPress={() => confrimGoal(false)}>
+                  <Icon2 name="plus" color={'#505050'} size={60} />
+                </TouchableOpacity>
+              ) : null}
+            </View>
           </View>
-          ) : null}
-          {goalTypeVisible ? (
-          <TouchableOpacity style={styles.modalAccept} onPress={() => confrimGoal(false)}>
-              <Text style={styles.modalAcceptButtonText}>Confirm</Text>
-          </TouchableOpacity>
-          ): null}
         </View>
-        </View>
-      </View>
-    </Modal>
+      </Modal>
 
 
-    <Modal
+      <Modal
         animationType="slide"
         transparent={true}
         visible={editModalVisible}
-        >
-      <View style={styles.modalView}>
-        <View style={styles.modalBox}>
-          <View style={styles.modalTop}>
-          <TouchableOpacity onPress={() => cancelEdit()}>
-          <Icon3 name="close" size={40} style={styles.modalCloseIcon} ></Icon3>
-          </TouchableOpacity>
-          <Text style={styles.modalTitle}>EDIT GOAL</Text>
-        </View>
-        <View style={styles.modalBot}>
-        <View style={styles.goalBox}>
-        <View style={styles.inputContainer}>
-        <Text style={styles.textBoxText}>Week 1 weigh (kg):</Text>
-        <TextInput
-         style={styles.input}
-         placeholder=""
-         value={weekOneWeight}
-         onChangeText={setWeekOneWeight}
-         secureTextEntry={false}
-         keyboardType='numeric'
-        >
-        </TextInput>
-        </View>
+      >
+        <View style={styles.modalView}>
+          <View style={styles.modalBox}>
+            <View style={styles.modalTop}>
+              <Text style={styles.modalTitle}>Edit Goal</Text>
+              <TouchableOpacity onPress={() => cancelEdit()}>
+                <Icon3 name="close" size={40} style={styles.modalCloseIcon } color={'#505050'} ></Icon3>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.modalBot}>
+              <View style={styles.goalBox}>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.textBoxText}>Week 1 weight (kg):</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder=""
+                    value={weekOneWeight}
+                    onChangeText={setWeekOneWeight}
+                    secureTextEntry={false}
+                    keyboardType='numeric'
+                  >
+                  </TextInput>
+                </View>
 
-        <View style={styles.inputContainer}>
-        <Text style={styles.textBoxText}>Week 2 weigh (kg):</Text>
-        <TextInput
-         style={styles.input}
-         placeholder=""
-         value={weekTwoWeight}
-         onChangeText={setWeekTwoWeight}
-         secureTextEntry={false}
-         keyboardType='numeric'
-        >
-        </TextInput>
-        </View>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.textBoxText}>Week 2 weight (kg):</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder=""
+                    value={weekTwoWeight}
+                    onChangeText={setWeekTwoWeight}
+                    secureTextEntry={false}
+                    keyboardType='numeric'
+                  >
+                  </TextInput>
+                </View>
 
 
-        <View style={styles.inputContainer}>
-        <Text style={styles.textBoxText}>Week 3 weigh (kg):</Text>
-        <TextInput
-         style={styles.input}
-         placeholder=""
-         value={weekThreeWeight}
-         onChangeText={setWeekThreeWeight}
-         secureTextEntry={false}
-         keyboardType='numeric'
-        >
-        </TextInput>
+                <View style={styles.inputContainer}>
+                  <Text style={styles.textBoxText}>Week 3 weight (kg):</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder=""
+                    value={weekThreeWeight}
+                    onChangeText={setWeekThreeWeight}
+                    secureTextEntry={false}
+                    keyboardType='numeric'
+                  >
+                  </TextInput>
+                </View>
+              </View>
+              <TouchableOpacity style={[styles.modalAccept, {top: 250}]} onPress={() => confirmEdit()}>
+                <Icon2 name="plus"  color={'#505050'} size={60} />
+              </TouchableOpacity>
+            </View>
+          </View>
         </View>
-
-        </View>
-          
-          <TouchableOpacity style={styles.modalAccept} onPress={() => confirmEdit()}>
-              <Text style={styles.modalAcceptButtonText}>Confirm</Text>
-          </TouchableOpacity>
-  
-        </View>
-        </View>
-      </View>
-    </Modal>
+      </Modal>
 
 
 
       <View style={styles.content}>
         <View style={styles.TopContent}>
           <ProgressCircle
-            percent={progress*100}
+            percent={progress * 100}
             radius={70}
             borderWidth={30}
             color="#73d673"
             shadowColor="#d6d4d4"
             bgColor="#ececea"
           >
-            <Text style={{ fontSize: 25 }}>{(progress*100).toFixed(0) + "%"}</Text>
+            <Text style={{ fontSize: 25 }}>{(progress * 100).toFixed(0) + "%"}</Text>
           </ProgressCircle>
         </View>
         <View>
@@ -393,97 +390,108 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingBottom: 5,
     paddingTop: 8
-  },modalView:{
+  }, modalView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
   },
-  modalBox:{ 
+  modalBox: {
     marginTop: 22,
-    backgroundColor: 'grey',
-    height: "95%",
+    backgroundColor: '#bdbdc7',
+    height: "55%",
     width: "95%",
-    borderRadius: 20,
+    borderRadius: 60,
     borderWidth: 2,
+    borderColor: '#cbcbce',
+    elevation: 10,
+    shadowColor: '#505050',
   },
-  modalTop:{
+  modalTop: {
     flexDirection: 'row',
     flex: 1,
-    
+    justifyContent: 'center',
   },
-  modalTitle:{
+  modalTitle: {
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 12,
-    marginLeft: "18%",
   },
-  modalCloseIcon:{
-    marginTop: 10,
-    marginLeft: 20,
+  modalCloseIcon: {
+    position: 'absolute',
+    top: 15,
+    right: -100
   },
-  modalBot:{
-    flex: 6,
-    
-    alignItems: 'center', 
+  modalBot: {
+    flex: 5,
+    alignItems: 'center',
   },
-  goalBox:{
+  goalBox: {
     width: '90%',
     height: '70%',
     backgroundColor: '#D3D3D3',
-    borderRadius: 20,
-    marginTop: 40,
+    borderRadius: 30,
+    marginTop: 15,
   },
-  modalAccept:{
-    height: 50,
-    width: 150,
-    borderRadius: 20,
-    backgroundColor: '#007FFF',
-    marginTop: 30,
+  modalAccept: {
+    position: 'absolute',
+    top: 200,
+    right: 15,
+    borderRadius: 50,
+    width: 80,
+    height: 80,
+    borderWidth: 1,
+    borderColor: '#d1d1d4',
+    justifyContent: 'center',
     alignItems: 'center',
-    borderWidth: 2,
+    backgroundColor: '#8cbbf1',
+    elevation: 5,
+    shadowColor: '#8cbbf1'
   },
-  modalAcceptButtonText:{
-    marginTop: 12,
-    fontWeight: 'bold',
-    fontSize: 18,
+  modalAcceptButtonText: {
+    fontWeight: '800',
+    fontSize: 22,
   },
-  pickerWrapper:{
+  pickerWrapper: {
     width: "60%",
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: '20%',
     borderBottomLeftRadius: 20,
   },
-  picker:{
+  picker: {
     marginLeft: 20,
     width: "60%",
     fontSize: 18,
     borderRadius: 20,
     backgroundColor: 'white'
   },
-  goalTypeText:{
+  goalTypeText: {
     fontSize: 18,
+    fontWeight: '800'
   },
-  input:{
+  input: {
     height: 50,
-    backgroundColor: 'white',
+    backgroundColor: '#ececea',
     fontSize: 16,
     marginRight: 20,
-    flex: 0.7,
-    borderWidth: 2,
+    flex: 0.6,
+    borderWidth: 1,
+    borderColor: '#f1f1ee',
     paddingLeft: 5,
+    borderRadius: 40,
+    elevation: 2
   },
-  inputContainer:{
+  inputContainer: {
     flexDirection: 'row',
-    
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 25,
   },
-  textBoxText:{
-    marginLeft: 10,
-    fontSize: 17,
+  textBoxText: {
+    marginLeft: 14,
+    fontSize: 18,
     flex: 1,
+    fontWeight: '800'
   },
 });
 

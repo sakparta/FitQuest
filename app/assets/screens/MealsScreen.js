@@ -52,7 +52,7 @@ const MealsScreen = ({ navigation }) => {
 
   const [calorieDiscrepancy, setCalorieDiscrepancy] = useState(0)
 
-  const confirmMeal = () =>{
+  const confirmMeal = () => {
     setLogMealModalVisible(false)
     temp = calorieGoal - dailyCalorie
     setCalorieDiscrepancy(temp)
@@ -66,7 +66,7 @@ const MealsScreen = ({ navigation }) => {
     ],
   };
 
-  
+
   return (
     <View style={styles.container}>
       <Modal
@@ -79,8 +79,8 @@ const MealsScreen = ({ navigation }) => {
         }}>
         <View style={styles.modalView}>
           <View style={styles.modalBox}>
-            <View style={styles.modalTop}>
-              <Text style={styles.modalTitle}>Set Calorie Goal</Text>
+            <View style={[styles.modalTop, {flex: 2}]}>
+              <Text style={[styles.modalTitle, {marginLeft: 30}]}>Set Calorie Goal</Text>
               <TouchableOpacity onPress={() => setIsModalVisible(false)}>
                 <Icon2 name="close" size={40} style={styles.modalCloseIcon} color={'#505050'} ></Icon2>
               </TouchableOpacity>
@@ -110,117 +110,117 @@ const MealsScreen = ({ navigation }) => {
                 </Picker>
               </View>
               <View>
-              <TouchableOpacity style={styles.modalAccept} onPress={() => setIsModalVisible(false)}>
-                <Text style={styles.modalAcceptButtonText}>Confirm</Text>
-              </TouchableOpacity>
+                <TouchableOpacity style={styles.calorieGoalAccept} onPress={() => setIsModalVisible(false)}>
+                <Icon2 name="plus" size={40} style={styles.WorkoutBoxEdit} color={'#505050'}></Icon2>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
         </View>
       </Modal>
-      
+
 
       <Modal
         animationType="slide"
         transparent={true}
         visible={logMealModalVisible}
-       >
-      <View style={styles.modalView}>
-        <View style={styles.modalLogMealBox}>
-          <View style={styles.modalTop}>
-          <TouchableOpacity onPress={() => setLogMealModalVisible(false)}>
-          <Icon2 name="close" size={40} style={styles.modalCloseIcon} ></Icon2>
-          </TouchableOpacity>
-          <View style={styles.modalTitleWrapper}>
-          <Text style={styles.modalTitle}>Log Meal</Text>
+      >
+        <View style={styles.modalView}>
+          <View style={styles.modalLogMealBox}>
+            <View style={styles.modalTop}>
+              <View style={styles.modalTitleWrapper}>
+                <Text style={styles.modalTitle}>Log Meal</Text>
+                <TouchableOpacity onPress={() => setLogMealModalVisible(false)}>
+                  <Icon2 name="close" size={40} color={'#505050'} style={styles.modalCloseIcon} ></Icon2>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View style={styles.modalBot}>
+              <View style={styles.inputContainer}>
+                <Text style={styles.textBoxText}>Calorie amount: (kcal):</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder=""
+                  value={dailyCalorie}
+                  onChangeText={setDailyCalorie}
+                  secureTextEntry={false}
+                  keyboardType='numeric'
+                >
+                </TextInput>
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.textBoxText}>Month</Text>
+                <Picker
+                  style={styles.input}
+                  selectedValue={month}
+                  onValueChange={(itemValue, itemIndex) => {
+                    setMonth(itemValue)
+                  }
+                  }>
+                  <Picker.Item label="January" value="January" />
+                  <Picker.Item label="February" value="February" />
+                  <Picker.Item label="March" value="March" />
+                  <Picker.Item label="April" value="April" />
+                  <Picker.Item label="May" value="May" />
+                  <Picker.Item label="June" value="June" />
+                  <Picker.Item label="July" value="July" />
+                  <Picker.Item label="August" value="August" />
+                  <Picker.Item label="September" value="September" />
+                  <Picker.Item label="October" value="October" />
+                  <Picker.Item label="November" value="November" />
+                  <Picker.Item label="December" value="December" />
+                </Picker>
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.textBoxText}>day</Text>
+                <Picker
+                  style={styles.input}
+                  selectedValue={day}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setDay(itemValue)
+                  }>
+                  <Picker.Item label="1" value="1" />
+                  <Picker.Item label="2" value="2" />
+                  <Picker.Item label="3" value="3" />
+                  <Picker.Item label="4" value="4" />
+                  <Picker.Item label="5" value="5" />
+                  <Picker.Item label="6" value="6" />
+                  <Picker.Item label="7" value="7" />
+                  <Picker.Item label="8" value="8" />
+                  <Picker.Item label="9" value="9" />
+                  <Picker.Item label="10" value="10" />
+                  <Picker.Item label="11" value="11" />
+                  <Picker.Item label="12" value="12" />
+                  <Picker.Item label="13" value="13" />
+                  <Picker.Item label="14" value="14" />
+                  <Picker.Item label="15" value="15" />
+                  <Picker.Item label="16" value="16" />
+                  <Picker.Item label="17" value="17" />
+                  <Picker.Item label="18" value="18" />
+                  <Picker.Item label="19" value="19" />
+                  <Picker.Item label="20" value="20" />
+                  <Picker.Item label="21" value="21" />
+                  <Picker.Item label="22" value="22" />
+                  <Picker.Item label="23" value="23" />
+                  <Picker.Item label="24" value="24" />
+                  <Picker.Item label="25" value="25" />
+                  <Picker.Item label="26" value="26" />
+                  <Picker.Item label="27" value="27" />
+                  <Picker.Item label="28" value="28" />
+                  <Picker.Item label="29" value="29" />
+                  <Picker.Item label="30" value="30" />
+                  <Picker.Item label="31" value="31" />
+
+                </Picker>
+              </View>
+              <TouchableOpacity style={styles.modalAccept} onPress={() => confirmMeal()}>
+              <Icon2 name="plus" size={40} style={styles.WorkoutBoxEdit} color={'#505050'}></Icon2>
+              </TouchableOpacity>
+            </View>
+
           </View>
         </View>
-        <View style={styles.modalBot}>
-        <View style={styles.inputContainer}>
-        <Text style={styles.textBoxText}>Calorie amount: (kcal):</Text>
-        <TextInput
-            style={styles.input}
-            placeholder=""
-            value={dailyCalorie}
-            onChangeText={setDailyCalorie}
-            secureTextEntry={false}
-            keyboardType='numeric'
-        >
-        </TextInput>
-        </View>
-        <View style={styles.inputContainer}>
-        <Text style={styles.textBoxText}>Month</Text>
-            <Picker
-              style={styles.input}
-              selectedValue={month}
-              onValueChange={(itemValue, itemIndex) =>{
-                setMonth(itemValue)
-              }
-              }>
-              <Picker.Item label="January" value="January" />
-              <Picker.Item label="February" value="February" />
-              <Picker.Item label="March" value="March" />
-              <Picker.Item label="April" value="April" />
-              <Picker.Item label="May" value="May" />
-              <Picker.Item label="June" value="June" />
-              <Picker.Item label="July" value="July" />
-              <Picker.Item label="August" value="August" />
-              <Picker.Item label="September" value="September" />
-              <Picker.Item label="October" value="October" />
-              <Picker.Item label="November" value="November" />
-              <Picker.Item label="December" value="December" />
-            </Picker> 
-        </View>
-        <View style={styles.inputContainer}>
-        <Text style={styles.textBoxText}>day</Text>
-            <Picker
-              style={styles.input}
-              selectedValue={day}
-              onValueChange={(itemValue, itemIndex) =>
-                setDay(itemValue)
-              }>
-              <Picker.Item label="1" value="1" />
-              <Picker.Item label="2" value="2" />
-              <Picker.Item label="3" value="3" />
-              <Picker.Item label="4" value="4" />
-              <Picker.Item label="5" value="5" />
-              <Picker.Item label="6" value="6" />
-              <Picker.Item label="7" value="7" />
-              <Picker.Item label="8" value="8" />
-              <Picker.Item label="9" value="9" />
-              <Picker.Item label="10" value="10" />
-              <Picker.Item label="11" value="11" />
-              <Picker.Item label="12" value="12" />
-              <Picker.Item label="13" value="13" />
-              <Picker.Item label="14" value="14" />
-              <Picker.Item label="15" value="15" />
-              <Picker.Item label="16" value="16" />
-              <Picker.Item label="17" value="17" />
-              <Picker.Item label="18" value="18" />
-              <Picker.Item label="19" value="19" />
-              <Picker.Item label="20" value="20" />
-              <Picker.Item label="21" value="21" />
-              <Picker.Item label="22" value="22" />
-              <Picker.Item label="23" value="23" />
-              <Picker.Item label="24" value="24" />
-              <Picker.Item label="25" value="25" />
-              <Picker.Item label="26" value="26" />
-              <Picker.Item label="27" value="27" />
-              <Picker.Item label="28" value="28" />
-              <Picker.Item label="29" value="29" />
-              <Picker.Item label="30" value="30" />
-              <Picker.Item label="31" value="31" />
-
-            </Picker> 
-        </View>
-        <TouchableOpacity style={styles.modalAccept} onPress={() => confirmMeal()}>
-              <Text style={styles.modalAcceptButtonText}>Confirm</Text>
-          </TouchableOpacity>
-        </View>
-        
-        </View>
-      </View>
-    </Modal>
+      </Modal>
 
 
 
@@ -254,7 +254,7 @@ const MealsScreen = ({ navigation }) => {
               data={Data}
               chartConfig={chartConfig}
               bezier
-              height={250}
+              height={230}
               width={350}
             />
           </View>
@@ -326,6 +326,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#d7d7d8',
   },
+  modalTitleWrapper: {
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
   BottomContent: {
     flex: 2,
     backgroundColor: "#bdbdc7",
@@ -345,6 +350,21 @@ const styles = StyleSheet.create({
     height: 80,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
+  },
+  calorieGoalAccept: {
+    position: 'absolute',
+    top: 5,
+    right: -160,
+    borderRadius: 50,
+    width: 80,
+    height: 80,
+    borderWidth: 1,
+    borderColor: '#d1d1d4',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#8cbbf1',
+    elevation: 5,
+    shadowColor: '#8cbbf1'
   },
   titleText: {
     fontSize: 26,
@@ -452,65 +472,67 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   modalView: {
-    flex: 1,
+    height: '70%',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
+    elevation: 4
   },
   modalBox: {
-    flex: 0.6,
+    flex: 0.4,
     width: "90%",
     borderRadius: 60,
+    padding: 5,
     backgroundColor: '#e7e7e5',
     borderWidth: 2,
     borderColor: '#ebebea',
-    padding: 5,
     elevation: 10,
-    shadowColor: '#505050'
+    shadowColor: '#505050',
   },
   modalTop: {
     flexDirection: 'row',
-    flex: 1,
-
+    flex: 1.5,
   },
   modalTitle: {
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 12,
-    marginLeft: 40,
   },
   modalCloseIcon: {
-    marginTop: 13,
-    marginLeft: 14,
+    position: 'absolute',
+    top: 15,
+    right: -80
   },
   modalBot: {
-    flex: 6,
-
+    flex: 7,
     alignItems: 'center',
   },
   scrollwheelBox: {
     width: '60%',
-    height: '60%',
+    height: '30%',
     borderRadius: 20,
-    marginTop: 40,
+    marginTop: 30,
   },
   modalAccept: {
-    margin: 30,
-    height: 60,
-    width: 110,
-    borderWidth: 3,
-    borderRadius: 20,
-    backgroundColor: '#bdbdc7',
-    alignItems: 'center',
+    position: 'absolute',
+    top: 230,
+    right: 10,
+    borderRadius: 50,
+    width: 80,
+    height: 80,
+    borderWidth: 1,
+    borderColor: '#d1d1d4',
     justifyContent: 'center',
-    borderColor: '#bcbcc9',
-    elevation: 7
+    alignItems: 'center',
+    backgroundColor: '#8cbbf1',
+    elevation: 5,
+    shadowColor: '#8cbbf1'
   },
   modalAcceptButtonText: {
     fontWeight: '800',
     fontSize: 18,
   },
-  input:{
+  input: {
     height: 50,
     backgroundColor: 'white',
     fontSize: 16,
@@ -519,23 +541,23 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     paddingLeft: 5,
   },
-  inputContainer:{
+  inputContainer: {
     flexDirection: 'row',
-    
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 20,
   },
-  textBoxText:{
-    marginLeft: 10,
+  textBoxText: {
+    marginLeft: 8,
     fontSize: 17,
     flex: 1,
+    fontWeight: '800'
   },
-  pickerWrapper:{
+  pickerWrapper: {
     backgroundColor: 'blue',
     marginTop: 10,
     width: "60%",
   },
-  modalLogMealBox:{ 
+  modalLogMealBox: {
     flex: 0.7,
     width: "90%",
     borderRadius: 60,
