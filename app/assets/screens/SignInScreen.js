@@ -7,7 +7,7 @@ import { authentication } from '../firebase/firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 
-const SignInScreen = (props) => {
+const SignInScreen = () => {
 
   const [isSignedIn, setIsSignedIn] = useState(false);
 

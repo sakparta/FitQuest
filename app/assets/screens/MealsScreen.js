@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Modal, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import { LineChart } from 'react-native-chart-kit';
@@ -20,15 +20,7 @@ const handleCalorieGoal = () => {
 
 
 
-//barchartin data
-const data = {
-  labels: ['25 Mar', '26 Mar', '27 Mar'],
-  datasets: [
-    {
-      data: [3000, 2200, 2500],
-    },
-  ],
-};
+
 //barchartin style
 const chartConfig = {
   backgroundColor: "#8cbbf1",
@@ -49,8 +41,32 @@ const chartConfig = {
 
 
 const MealsScreen = ({ navigation }) => {
+
   const [modalVisible, setIsModalVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('java');
+  const [calorieGoal, setcalorieGoal] = useState('No goal');
+  const [logMealModalVisible, setLogMealModalVisible] = useState(false);
+
+  const [dailyCalorie, setDailyCalorie] = useState('0');
+  const [month, setMonth] = useState('')
+  const [day, setDay] = useState('')
+
+  const [calorieDiscrepancy, setCalorieDiscrepancy] = useState(0)
+
+  const confirmMeal = () =>{
+    setLogMealModalVisible(false)
+    temp = calorieGoal - dailyCalorie
+    setCalorieDiscrepancy(temp)
+  }
+  const Data = {
+    labels: ['25 Mar', '26 Mar', '27 Mar'],
+    datasets: [
+      {
+        data: [3000, 2200, 2500],
+      },
+    ],
+  };
+
+  
   return (
     <View style={styles.container}>
       <Modal
@@ -72,19 +88,14 @@ const MealsScreen = ({ navigation }) => {
             <View style={styles.modalBot}>
               <View style={styles.scrollwheelBox}>
                 <Picker
-                  selectedValue={selectedValue}
+                  selectedValue={calorieGoal}
                   onValueChange={(itemValue, itemIndex) =>
-                    setSelectedValue(itemValue)
+                    setcalorieGoal(itemValue)
                   }>
-                  <Picker.Item label="2550" value="2550" />
-                  <Picker.Item label="2550" value="2550" />
-                  <Picker.Item label="2450" value="2450" />
-                  <Picker.Item label="2400" value="2400" />
-                  <Picker.Item label="2350" value="2350" />
-                  <Picker.Item label="2300" value="2300" />
-                  <Picker.Item label="2250" value="2250" />
-                  <Picker.Item label="2200" value="2200" />
-                  <Picker.Item label="2550" value="2550" />
+                  <Picker.Item label="2750" value="2750" />
+                  <Picker.Item label="2700" value="2700" />
+                  <Picker.Item label="2650" value="2650" />
+                  <Picker.Item label="2600" value="2600" />
                   <Picker.Item label="2550" value="2550" />
                   <Picker.Item label="2450" value="2450" />
                   <Picker.Item label="2400" value="2400" />
@@ -92,6 +103,10 @@ const MealsScreen = ({ navigation }) => {
                   <Picker.Item label="2300" value="2300" />
                   <Picker.Item label="2250" value="2250" />
                   <Picker.Item label="2200" value="2200" />
+                  <Picker.Item label="2150" value="2150" />
+                  <Picker.Item label="2100" value="2100" />
+                  <Picker.Item label="2050" value="2050" />
+                  <Picker.Item label="2000" value="2000" />
                 </Picker>
               </View>
               <View>
@@ -103,6 +118,112 @@ const MealsScreen = ({ navigation }) => {
           </View>
         </View>
       </Modal>
+      
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={logMealModalVisible}
+       >
+      <View style={styles.modalView}>
+        <View style={styles.modalLogMealBox}>
+          <View style={styles.modalTop}>
+          <TouchableOpacity onPress={() => setLogMealModalVisible(false)}>
+          <Icon2 name="close" size={40} style={styles.modalCloseIcon} ></Icon2>
+          </TouchableOpacity>
+          <View style={styles.modalTitleWrapper}>
+          <Text style={styles.modalTitle}>Log Meal</Text>
+          </View>
+        </View>
+        <View style={styles.modalBot}>
+        <View style={styles.inputContainer}>
+        <Text style={styles.textBoxText}>Calorie amount: (kcal):</Text>
+        <TextInput
+            style={styles.input}
+            placeholder=""
+            value={dailyCalorie}
+            onChangeText={setDailyCalorie}
+            secureTextEntry={false}
+            keyboardType='numeric'
+        >
+        </TextInput>
+        </View>
+        <View style={styles.inputContainer}>
+        <Text style={styles.textBoxText}>Month</Text>
+            <Picker
+              style={styles.input}
+              selectedValue={month}
+              onValueChange={(itemValue, itemIndex) =>{
+                setMonth(itemValue)
+              }
+              }>
+              <Picker.Item label="January" value="January" />
+              <Picker.Item label="February" value="February" />
+              <Picker.Item label="March" value="March" />
+              <Picker.Item label="April" value="April" />
+              <Picker.Item label="May" value="May" />
+              <Picker.Item label="June" value="June" />
+              <Picker.Item label="July" value="July" />
+              <Picker.Item label="August" value="August" />
+              <Picker.Item label="September" value="September" />
+              <Picker.Item label="October" value="October" />
+              <Picker.Item label="November" value="November" />
+              <Picker.Item label="December" value="December" />
+            </Picker> 
+        </View>
+        <View style={styles.inputContainer}>
+        <Text style={styles.textBoxText}>day</Text>
+            <Picker
+              style={styles.input}
+              selectedValue={day}
+              onValueChange={(itemValue, itemIndex) =>
+                setDay(itemValue)
+              }>
+              <Picker.Item label="1" value="1" />
+              <Picker.Item label="2" value="2" />
+              <Picker.Item label="3" value="3" />
+              <Picker.Item label="4" value="4" />
+              <Picker.Item label="5" value="5" />
+              <Picker.Item label="6" value="6" />
+              <Picker.Item label="7" value="7" />
+              <Picker.Item label="8" value="8" />
+              <Picker.Item label="9" value="9" />
+              <Picker.Item label="10" value="10" />
+              <Picker.Item label="11" value="11" />
+              <Picker.Item label="12" value="12" />
+              <Picker.Item label="13" value="13" />
+              <Picker.Item label="14" value="14" />
+              <Picker.Item label="15" value="15" />
+              <Picker.Item label="16" value="16" />
+              <Picker.Item label="17" value="17" />
+              <Picker.Item label="18" value="18" />
+              <Picker.Item label="19" value="19" />
+              <Picker.Item label="20" value="20" />
+              <Picker.Item label="21" value="21" />
+              <Picker.Item label="22" value="22" />
+              <Picker.Item label="23" value="23" />
+              <Picker.Item label="24" value="24" />
+              <Picker.Item label="25" value="25" />
+              <Picker.Item label="26" value="26" />
+              <Picker.Item label="27" value="27" />
+              <Picker.Item label="28" value="28" />
+              <Picker.Item label="29" value="29" />
+              <Picker.Item label="30" value="30" />
+              <Picker.Item label="31" value="31" />
+
+            </Picker> 
+        </View>
+        <TouchableOpacity style={styles.modalAccept} onPress={() => confirmMeal()}>
+              <Text style={styles.modalAcceptButtonText}>Confirm</Text>
+          </TouchableOpacity>
+        </View>
+        
+        </View>
+      </View>
+    </Modal>
+
+
+
       <View style={styles.content}>
         <View style={styles.TopContent}>
           <View>
@@ -112,7 +233,7 @@ const MealsScreen = ({ navigation }) => {
             <View style={styles.leftButton}>
               <View style={styles.boxText}>
                 <View style={styles.unitBox}>
-                  <Text style={styles.calorieUnitText}>2 500 kcal</Text>
+                  <Text style={styles.calorieUnitText}>{calorieGoal}</Text>
                 </View>
                 <Text style={styles.calorieGoalTop}>Daily calorie Goal</Text>
               </View>
@@ -120,7 +241,7 @@ const MealsScreen = ({ navigation }) => {
                 <Icon2 name="edit" size={40} style={styles.WorkoutBoxEdit} color={'#505050'} ></Icon2>
               </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.rightButton}>
+            <TouchableOpacity style={styles.rightButton} onPress={() => setLogMealModalVisible(true)}>
               <Text style={styles.logMealText}>Log Meal</Text>
               <Icon2 name="plus" size={40} style={styles.WorkoutBoxEdit} color={'#505050'}></Icon2>
             </TouchableOpacity>
@@ -130,7 +251,7 @@ const MealsScreen = ({ navigation }) => {
         <View style={styles.MidContent}>
           <View style={styles.chart}>
             <LineChart
-              data={data}
+              data={Data}
               chartConfig={chartConfig}
               bezier
               height={250}
@@ -140,18 +261,18 @@ const MealsScreen = ({ navigation }) => {
         </View>
         <View style={styles.BottomContent}>
           <View style={styles.bottomContentTextTop}>
-            <Text style={styles.dataText}>26 March</Text>
+            <Text style={styles.dataText}>{day} {month}</Text>
           </View>
           <View style={styles.bottomContentTextBot}>
             <View style={styles.dietInfo}>
               <View style={styles.unitBox}>
-                <Text style={styles.calorieUnitText}>2 220 kcal</Text>
+                <Text style={styles.calorieUnitText}>{dailyCalorie} kcal</Text>
               </View>
               <Text style={styles.calorieText}>Calorie intake</Text>
             </View>
             <View style={styles.dietInfo}>
               <View style={styles.unitBox}>
-                <Text style={styles.calorieUnitText}>-180 kcal</Text>
+                <Text style={styles.calorieUnitText}>{calorieDiscrepancy} kcal</Text>
               </View>
               <Text style={styles.calorieText}>Calorie Discrepancy</Text>
             </View>
@@ -388,6 +509,42 @@ const styles = StyleSheet.create({
   modalAcceptButtonText: {
     fontWeight: '800',
     fontSize: 18,
+  },
+  input:{
+    height: 50,
+    backgroundColor: 'white',
+    fontSize: 16,
+    marginRight: 20,
+    flex: 0.7,
+    borderWidth: 2,
+    paddingLeft: 5,
+  },
+  inputContainer:{
+    flexDirection: 'row',
+    
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  textBoxText:{
+    marginLeft: 10,
+    fontSize: 17,
+    flex: 1,
+  },
+  pickerWrapper:{
+    backgroundColor: 'blue',
+    marginTop: 10,
+    width: "60%",
+  },
+  modalLogMealBox:{ 
+    flex: 0.7,
+    width: "90%",
+    borderRadius: 60,
+    backgroundColor: '#e7e7e5',
+    borderWidth: 2,
+    borderColor: '#ebebea',
+    padding: 5,
+    elevation: 10,
+    shadowColor: '#505050'
   },
 });
 

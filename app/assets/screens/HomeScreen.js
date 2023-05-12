@@ -14,6 +14,7 @@ const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
+
         <View style={styles.menuBox}>
         </View>
         <View style={styles.TopContent}>
@@ -43,6 +44,7 @@ const HomeScreen = ({ navigation }) => {
             <WorkoutCard title="Stretching" time="15 Minutes" icon="yoga" />
           </ScrollView>
         </View>
+
       </View>
       <View style={styles.navBar}>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Home")}>
