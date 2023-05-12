@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import TrashIcon from 'react-native-vector-icons/Feather';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Icon2 from 'react-native-vector-icons/AntDesign';
-import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon5 from 'react-native-vector-icons/Entypo';
 
@@ -38,7 +36,7 @@ const Workouts = ({title, desc, shortDesc, icon, content, id}) =>  {
             <View style={styles.workoutPopUp}>
               <View style={styles.returnIcon}>
                 <TouchableOpacity onPress={onPressReturn}>
-                  <Icon5 name="cross" size={50} />
+                  <Icon5 name="cross" color={'#505050'} size={50} />
                 </TouchableOpacity>
               </View>
               <View style={styles.workoutPopUpTop}>
@@ -54,6 +52,7 @@ const Workouts = ({title, desc, shortDesc, icon, content, id}) =>  {
                 <View style={styles.workoutChart}>
                     <ScrollView showsVerticalScrollIndicator={false} >
                         {content.map((item) => (
+                          //  rendering workoutPopUp
                         <View key={item.id}>
                             <Text style={styles.titleText}>{item.title}</Text>
                             <Text style={styles.contentText}>{item.content}</Text>
@@ -62,7 +61,7 @@ const Workouts = ({title, desc, shortDesc, icon, content, id}) =>  {
                     </ScrollView>
                 </View>
                 <TouchableOpacity style={styles.workoutRemoveButton} onPress={onPressRemoveWorkout}>
-                    <TrashIcon name= 'trash-2' size={50} />
+                    <TrashIcon name='trash-2' color={'#505050'} size={50} />
                 </TouchableOpacity>
               </View>
 
@@ -72,7 +71,7 @@ const Workouts = ({title, desc, shortDesc, icon, content, id}) =>  {
 
         <View style={styles.workoutBox}>
             <View style={styles.iconBox}>
-                <Icon name={icon} size={80} />    
+                <Icon4 name={icon} color={'#505050'} size={70} />    
             </View>
           <View style={styles.workoutBoxTextView}>
             <Text style={styles.titleText}>{title}</Text>
@@ -80,7 +79,7 @@ const Workouts = ({title, desc, shortDesc, icon, content, id}) =>  {
           </View>
           <View style={styles.workoutInfoIcon}>
             <TouchableOpacity onPress={onPressWorkoutBox}>
-                <Icon name="information-circle-outline" size={60} />
+                <Icon name="information-circle-outline" color={'#505050'} size={60} />
             </TouchableOpacity>
           </View>
         </View>
@@ -214,7 +213,7 @@ workoutInfoIcon: {
     borderColor: '#d1d1d4',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#bdbdc7',
+    backgroundColor: '#8cbbf1',
     elevation: 20,
     shadowColor: '#68686b'
   },

@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Workouts from '../components/AddedWorkouts';
 import { workoutArray } from '../components/WorkoutList';
 
@@ -21,15 +21,8 @@ const onPressAddworkoutsLibrary = () => {
   // Switches to Add workouts if not already in it
 };
 
-const MyWorkoutsScreen = ({ navigation, onPressReturn, onPressRemoveWorkout, workoutBoxVisible }) => {
+const MyWorkoutsScreen = ({ navigation }) => {
 
-  //tab logic
-  const [WorkoutLibrary, setWorkoutlibrary] = useState(true);
-
-
-
-  // weekday selector logic
-  const [dayButtonToggled, setDayButtonToggled] = useState([]);
 
   return (
 
@@ -39,11 +32,11 @@ const MyWorkoutsScreen = ({ navigation, onPressReturn, onPressRemoveWorkout, wor
         <Text style={styles.screenTitle}>Workouts</Text>
         <View style={styles.topContent}>
           <TouchableOpacity style={[styles.workoutSelectorButton, { backgroundColor: '#e6e6e7' }]} onPress={() => navigation.navigate("Workouts")}>
-            <Icon2 name="plus" size={50} />
+            <Icon2 name="plus" color={'#505050'} size={50} />
             <Text style={[styles.contentText, { fontSize: 10 }]}>Add workouts </Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.workoutSelectorButton} onPress={onPressMyWorkoutLibrary}>
-            <Icon3 name="collections-bookmark" size={50} />
+            <Icon3 name="collections-bookmark" color={'#505050'} size={50} />
             <Text style={[styles.contentText, { fontSize: 10 }]}>My workouts </Text>
           </TouchableOpacity>
         </View>
@@ -70,15 +63,15 @@ const MyWorkoutsScreen = ({ navigation, onPressReturn, onPressRemoveWorkout, wor
                 {/* Nav Bar */}
       <View style={styles.navBar}>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Home")}>
-          <Icon name="home-outline" size={30} color="black" />
+          <Icon name="home-outline" size={30} color="#505050" />
           <Text style={styles.navButtonText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Workouts")}>
-          <Icon name="fitness" size={40} color="black" />
+          <Icon name="fitness" size={40} color="#8cbbf1" />
           <Text style={styles.navButtonText}>Workouts</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Meals")}>
-          <Icon name="fast-food-outline" size={30} color="black" />
+          <Icon name="fast-food-outline" size={30} color="#505050" />
           <Text style={styles.navButtonText}>Meals</Text>
         </TouchableOpacity>
       </View>
@@ -103,7 +96,7 @@ const styles = StyleSheet.create({
     width: '90%',
     gap: 110,
     borderBottomWidth: 1,
-    borderBottomColor: '#bdbdc7'
+    borderBottomColor: '#8cbbf1',
   },
   bottomContent: {
     flex: 3,
@@ -161,7 +154,7 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   screenTitle: {
-    fontSize: 30,
+    fontSize: 34,
     fontWeight: 'bold',
     marginTop: 35
 

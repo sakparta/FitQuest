@@ -125,7 +125,7 @@
         title: 'Strength Training', 
         shortDesc: 'Push, Pull, Legs',
         desc: 'A Push, Pull, Legs Split is a common workout routine used to target different muscle groups on different days.',
-        icon: '',
+        icon: 'weight-lifter',
         content: strengthProgram ,
         id: 1
       },
@@ -134,7 +134,7 @@
         shortDesc: 'Running, Cycling, HIIT ',
         desc: 'Exercise routine focused on improving cardiovascular health and fitness through activities such as running, cycling, and HIIT.', 
         content: cardioProgram ,
-        icon: '',
+        icon: 'run-fast',
         id: 2
       },
       {
@@ -142,15 +142,15 @@
         shortDesc: 'Strength Training + Cardio',
         desc: 'A mixed training program combining strength and cardio exercises for a well-rounded fitness routine.',
         content: mixedProgram ,
-        icon: '',
+        icon: 'ski-cross-country',
         id: 3
       },
       {
-        title: 'Stretching Exercises',
+        title: 'Mobility Program',
         shortDesc: 'Overall Body Mobility',
         desc: 'Stretching program focusing on improving overall body mobility and flexibility through a variety of stretching exercises.',
         content: stretchingProgram ,
-        icon: '',
+        icon: 'yoga',
         id: 4
       },
     ];

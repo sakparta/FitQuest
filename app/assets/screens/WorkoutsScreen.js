@@ -1,34 +1,30 @@
-
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Workouts from '../components/Workouts';
 import { workoutArray } from '../components/WorkoutList';
-
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
-import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon5 from 'react-native-vector-icons/Entypo';
 
 const onPressAddworkoutsLibrary = () => {
   console.log("Add workouts pressed.");
 };
 
-const WorkoutsScreen = ({ navigation, onPressReturn, onPressAddWorkout, workoutBoxVisible, onPressDay }) => {
-  return (
+const WorkoutsScreen = ({ navigation }) => {
 
+  return (
     <View style={styles.container}>
       <View style={styles.content}>
 
         <Text style={styles.screenTitle}>Workouts</Text>
         <View style={styles.topContent}>
           <TouchableOpacity style={styles.workoutSelectorButton} onPress={onPressAddworkoutsLibrary}>
-            <Icon2 name="plus" size={50} />
+            <Icon2 name="plus" color={'#505050'} size={50} />
             <Text style={[styles.contentText, { fontSize: 10 }]}>Add workouts </Text>
           </TouchableOpacity>
           <TouchableOpacity style={[styles.workoutSelectorButton, { backgroundColor: '#e6e6e7' }]} onPress={() => navigation.navigate("MyWorkouts")}>
-            <Icon3 name="collections-bookmark" size={50} />
+            <Icon3 name="collections-bookmark" color={'#505050'} size={50} />
             <Text style={[styles.contentText, { fontSize: 10 }]}>My workouts </Text>
           </TouchableOpacity>
         </View>
@@ -36,9 +32,10 @@ const WorkoutsScreen = ({ navigation, onPressReturn, onPressAddWorkout, workoutB
         <View style={styles.bottomContent}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <View>
-              {workoutArray.map((workout) => (
+              {workoutArray.map((workout) => (  
                 <Workouts
                   key={workout.id}
+                  id={workout.id}
                   title={workout.title}
                   desc={workout.desc}
                   content={workout.content}
@@ -56,15 +53,15 @@ const WorkoutsScreen = ({ navigation, onPressReturn, onPressAddWorkout, workoutB
         {/* Nav Bar */}
       <View style={styles.navBar}>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Home")}>
-          <Icon name="home-outline" size={30} color="black" />
+          <Icon name="home-outline" size={30} color="#505050" />
           <Text style={styles.navButtonText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Workouts")}>
-          <Icon name="fitness" size={40} color="black" />
+          <Icon name="fitness" size={40} color="#8cbbf1" />
           <Text style={styles.navButtonText}>Workouts</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Meals")}>
-          <Icon name="fast-food-outline" size={30} color="black" />
+          <Icon name="fast-food-outline" size={30} color="#505050" />
           <Text style={styles.navButtonText}>Meals</Text>
         </TouchableOpacity>
       </View>
@@ -79,7 +76,6 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    justifyContent: 'flex-start',
     alignItems: 'center'
   },
   topContent: {
@@ -89,7 +85,7 @@ const styles = StyleSheet.create({
     width: '90%',
     gap: 110,
     borderBottomWidth: 1,
-    borderBottomColor: '#bdbdc7'
+    borderBottomColor: '#8cbbf1'
   },
   bottomContent: {
     flex: 3,
@@ -146,16 +142,9 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   screenTitle: {
-    fontSize: 30,
+    fontSize: 34,
     fontWeight: 'bold',
-    marginTop: 35
-
-  },
-  descriptionText: {
-    color: 'black',
-    textAlign: 'auto',
-    fontWeight: 'bold',
-    fontSize: 15
+    marginTop: 40
   },
 
 

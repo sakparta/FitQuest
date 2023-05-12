@@ -1,100 +1,101 @@
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Icon2 from 'react-native-vector-icons/FontAwesome';
+import Icon2 from 'react-native-vector-icons/Entypo';
+import Icon3 from 'react-native-vector-icons/FontAwesome';
 import ProgressCircle from 'react-native-progress-circle'
-import { BarChart } from 'react-native-chart-kit';
-import {Picker} from '@react-native-picker/picker';
+import { LineChart } from 'react-native-chart-kit';
 import * as Progress from 'react-native-progress';
+import {Picker} from '@react-native-picker/picker';
+
+//Linechartin style
+const chartConfig = {
+  backgroundColor: "#8cbbf1",
+  backgroundGradientFrom: "#bdbdc7",
+  backgroundGradientTo: "#bdbdc7",
+  decimalPlaces: 2, // optional, defaults to 2dp
+  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+  style: {
+    borderRadius: 40
+  },
+  propsForDots: {
+    r: "6",
+    strokeWidth: "2",
+    stroke: "#8cbbf1"
+  }
+};
+
+const HomeScreen = ({ navigation }) => {
 
 
-
-
-
-  //barchartin style
-  const chartConfig = {
-    backgroundGradientFrom: 'grey',
-    backgroundGradientTo: 'grey',
-    fillShadowGradientOpacity: 1,
-    backgroundGradientToOpacity: 0.5,
-    color: (opacity = 6) => `rgba(0, 0, 255, ${opacity})`,
-    strokeWidth: 3, // optional, default 3
-    barPercentage: 1,
-    useShadowColorFromDataset: false, // optional
-    barRadius: 1,
-   
-  };
- 
-
-const HomeScreen = ({navigation}) => {
+    const [modalVisible, setIsModalVisible] = useState(false);
+    const [selectedValue, setSelectedValue] = useState('');
   
- 
-  const [modalVisible, setIsModalVisible] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('');
-
-  const [startWeight, setStartWeight] = useState('');
-  const [weightGoal, setWeightGoal] = useState('');
-  const [goalTypeVisible, setGoalTypeVisible] = useState(true);
-  const [progress, setProgress] = useState(0);
-  const [goalSet, setGoalSet] = useState(false)
-
-  const [weekOneWeight, setWeekOneWeight] = useState(0);
-  const [weekTwoWeight, setWeekTwoWeight] = useState(0);
-  const [weekThreeWeight, setWeekThreeWeight] = useState(0);
- 
-  const [editModalVisible, setEditModalVisible] = useState(false);
-
-  const barData = {
-    labels: ['Start', 'Week 1', 'week 2', 'week 3'],
-    datasets: [
-      {
-        data: [startWeight, weekOneWeight, weekTwoWeight, weekThreeWeight],
-      },
-    ],
-  };
-
-
-
-
-  const confrimGoal = () =>{
-    setIsModalVisible(false)     
-  }
-
-  const confirmEdit = () =>{
+    const [startWeight, setStartWeight] = useState(0);
+    const [weightGoal, setWeightGoal] = useState('');
+    const [goalTypeVisible, setGoalTypeVisible] = useState(true);
+    const [progress, setProgress] = useState(0);
+    
+  
+    const [weekOneWeight, setWeekOneWeight] = useState(0);
+    const [weekTwoWeight, setWeekTwoWeight] = useState(0);
+    const [weekThreeWeight, setWeekThreeWeight] = useState(0);
    
-    if(weekOneWeight===0 && weekTwoWeight===0 && weekThreeWeight===0){
-      console.log("Error")
-      currentWeight = startWeigh
-    }else if(weekOneWeight>0 && weekTwoWeight===0 && weekThreeWeight===0){
-      currentWeight = weekOneWeight
-    }else if(weekTwoWeight>0 && weekThreeWeight===0){
-      currentWeight = weekTwoWeight
-    }else if(weekThreeWeight>0 ){
-      currentWeight = weekThreeWeight
-    }else{
-      console.log("error")
-      currentWeight = 0
-    }
-   prog = (startWeight-currentWeight)/(startWeight-weightGoal)
-   setProgress(prog)
-   setEditModalVisible(false)
-  }
+    const [editModalVisible, setEditModalVisible] = useState(false);
+  
+    const Data = {
+      labels: ['Start', 'Week 1', 'week 2', 'week 3'],
+      datasets: [
+        {
+          data: [startWeight, weekOneWeight, weekTwoWeight, weekThreeWeight],
+        },
+      ],
+    };
+
+    const confrimGoal = () =>{
+        setIsModalVisible(false)     
+      }
+    
+      const confirmEdit = () =>{
+       
+        if(weekOneWeight===0 && weekTwoWeight===0 && weekThreeWeight===0){
+          console.log("Error")
+          currentWeight = startWeight
+        }else if(weekOneWeight>0 && weekTwoWeight===0 && weekThreeWeight===0){
+          currentWeight = weekOneWeight
+        }else if(weekTwoWeight>0 && weekThreeWeight===0){
+          currentWeight = weekTwoWeight
+        }else if(weekThreeWeight>0 ){
+          currentWeight = weekThreeWeight
+        }else{
+          console.log("error")
+          currentWeight = 0
+        }
+       prog = (startWeight-currentWeight)/(startWeight-weightGoal)
+       setProgress(prog)
+       setEditModalVisible(false)
+      }
+    
+    
+      const cancelEdit = () =>{
+        setWeekOneWeight(0)
+        setWeekTwoWeight(0)
+        setWeekThreeWeight(0)
+        setEditModalVisible(false)
+      }
+      const goalTypeSelection = (value) =>{
+        if(value === 'Weight'){
+          setGoalTypeVisible(true)
+        }
+      }
 
 
-  const cancelEdit = () =>{
-    setWeekOneWeight(0)
-    setWeekTwoWeight(0)
-    setWeekThreeWeight(0)
-    setEditModalVisible(false)
-  }
-  const goalTypeSelection = (value) =>{
-    if(value === 'Weight'){
-      setGoalTypeVisible(true)
-    }
-  }
   return (
     <View style={styles.container}>
-      <Modal
+
+
+<Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
@@ -103,7 +104,7 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.modalBox}>
           <View style={styles.modalTop}>
           <TouchableOpacity onPress={() => setIsModalVisible(false)}>
-          <Icon2 name="close" size={40} style={styles.modalCloseIcon} ></Icon2>
+          <Icon3 name="close" size={40} style={styles.modalCloseIcon} ></Icon3>
           </TouchableOpacity>
           <Text style={styles.modalTitle}>ADD GOAL</Text>
         </View>
@@ -119,7 +120,7 @@ const HomeScreen = ({navigation}) => {
             }   
         }>
             <Picker.Item label="Weight" value="Weight" />
-            <Picker.Item label="asd" value="asdsad" />
+
         </Picker>
         </View>
         <View style={styles.modalBot}>
@@ -170,7 +171,7 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.modalBox}>
           <View style={styles.modalTop}>
           <TouchableOpacity onPress={() => cancelEdit()}>
-          <Icon2 name="close" size={40} style={styles.modalCloseIcon} ></Icon2>
+          <Icon3 name="close" size={40} style={styles.modalCloseIcon} ></Icon3>
           </TouchableOpacity>
           <Text style={styles.modalTitle}>EDIT GOAL</Text>
         </View>
@@ -228,62 +229,70 @@ const HomeScreen = ({navigation}) => {
     </Modal>
 
 
+
       <View style={styles.content}>
         <View style={styles.TopContent}>
-            <ProgressCircle
+          <ProgressCircle
             percent={progress*100}
             radius={70}
             borderWidth={30}
-            color="#10e410"
+            color="#73d673"
             shadowColor="#d6d4d4"
-            bgColor="#fff"
-            >
+            bgColor="#ececea"
+          >
             <Text style={{ fontSize: 25 }}>{(progress*100).toFixed(0) + "%"}</Text>
-        </ProgressCircle>
+          </ProgressCircle>
         </View>
-        <Text style={styles.goalText}>Weight loss goal: {weightGoal} </Text>
-        <View style={styles.MidContent}>
-          <View style={styles.Chart}>
-          <BarChart
-            data={barData}
-            width={330}
-            height={200}
-            chartConfig={chartConfig}
-            withInnerLines={true}
-            withHorizontalLabels={true}
-            fromZero={true}
-            showBarTops={false}
-          />
+        <View>
+          <Text style={styles.titleText}>Weight Goal</Text>
         </View>
-        </View>
-          <View style={styles.BottomContent}>
-            <View style={styles.BottomGoalBar}>
-                    <Text style={styles.StartWeightText}>{startWeight}</Text>
-                    <Progress.Bar progress={progress} width={200} height={50} color={'green'} unfilledColor={'#D3D3D3'}/>
-                    <Text style={styles.EndWeightText}>{weightGoal}</Text>
+        <View style={[{ flexDirection: 'row' }, { alignItems: 'center' }]}>
+          <TouchableOpacity>
+            <Icon2 name='chevron-left' size={40} color={'#505050'} />
+          </TouchableOpacity>
+          <View style={styles.MidContent}>
+            <View style={styles.chart}>
+              <LineChart
+                data={Data}
+                chartConfig={chartConfig}
+                bezier
+                height={250}
+                width={300}
+              />
             </View>
-            <View style={styles.bottomContentButtons}>
-                <TouchableOpacity style={styles.bottomContentAddButton} onPress={() => setIsModalVisible(true)}>
-                    <Text style={styles.bottomContentButtonText}> ADD GOAL</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.bottomContentEditButton}>
-                   <Text  style={styles.bottomContentButtonText} onPress={() => setEditModalVisible(true)}> EDIT GOAL</Text>
-                </TouchableOpacity>
-            </View>  
+          </View>
+          <TouchableOpacity>
+            <Icon2 name='chevron-right' size={40} color={'#505050'} />
+          </TouchableOpacity>
         </View>
-        
+        <View style={styles.BottomContent}>
+          <View style={styles.BottomGoalBar}>
+            <Text style={styles.barChartText}>{startWeight}</Text>
+            <Progress.Bar progress={progress} width={200} height={50} color={'#73d673'} borderRadius={10} borderWidth={3} borderColor='#bdbdc7' unfilledColor={'#bdbdc7'} />
+            <Text style={styles.barChartText}>{weightGoal}</Text>
+          </View>
+          <View style={styles.bottomContentButtons}>
+            <TouchableOpacity style={styles.bottomContentButton} onPress={() => setIsModalVisible(true)}>
+              <Text style={styles.bottomContentButtonText}> Add Goal</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.bottomContentButton} onPress={() => setEditModalVisible(true)}>
+              <Text style={styles.bottomContentButtonText}> Edit Goal</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
       </View>
       <View style={styles.navBar}>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Home")}>
-          <Icon name="home-outline" size={30} color="black"  />
+          <Icon name="home-outline" size={30} color="#505050" />
           <Text style={styles.navButtonText}>Home</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Workouts")}>
-          <Icon name="fitness-outline" size={30} color="black" />
+          <Icon name="fitness-outline" size={30} color="#505050" />
           <Text style={styles.navButtonText}>Workouts</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Meals")}>
-          <Icon name="fast-food-outline" size={30} color="black" />
+          <Icon name="fast-food-outline" size={30} color="#505050" />
           <Text style={styles.navButtonText}>Meals</Text>
         </TouchableOpacity>
       </View>
@@ -291,201 +300,191 @@ const HomeScreen = ({navigation}) => {
   );
 };
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: 'white',
-      },
-      content: {
-        flex: 1,
-        alignItems: 'center',
-      },
-      navBar: {
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: 'white',
-        height: 80,
-        borderTopWidth: 1,
-        borderTopColor: '#ccc',
-      },
-      navButton: {
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
-      navButtonText: {
-        fontSize: 12,
-        color: 'black',
-        marginTop: 5,
-      },
-      TopContent:{
-        marginTop: 60,
-        flex: 0.7,
-        marginBottom: 5,
-        width: "100%",
-        alignItems: 'center',
-      },
-      MidContent:{
-        flex: 1.1,
-        backgroundColor: "grey",
-        borderRadius: 20,
-        width: '97%',
-        marginBottom: 10,
-        flexDirection: 'row',
-        alignItems: 'center',
-        borderWidth: 2,
-      },
-      Chart:{
-        marginTop: 40,
-      },
-      BottomContent:{
-        flex: 0.8,
-        
-      },
-      BottomGoalBar:{
-        marginTop: 20,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        flex: 0.2,
-      },
-      StartWeightText:{
-        marginRight: 10,
-        marginTop: 2,
-        fontSize: 18,
-      },
-      EndWeightText:{
-        marginLeft: 10,
-        marginTop: 2,
-        fontSize: 18,
-      },
-      bottomContentButtons:{
-        width: "95%",
-        flex: 1,
-        alignItems: 'center',
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-      },
-      bottomContentAddButton:{
-        flex: 1,
-        marginLeft: 35,
-        marginRight: 20,
-        height: '42%',
-        borderWidth: 3,
-        borderRadius: 20,
-        backgroundColor: '#007FFF',
-        alignItems: 'center',
-        justifyContent: 'space-around'
-      },
-      bottomContentEditButton:{
-        flex: 1,
-        marginLeft: 20,
-        marginRight: 35,
-        height: '42%',
-        borderWidth: 3,
-        borderRadius: 20,
-        backgroundColor: '#007FFF',
-        alignItems: 'center',
-        justifyContent: 'space-around'
-      },
-      bottomContentButtonText:{
-        fontWeight: 'bold',
-        fontSize: 20,
-      },
-      goalText:{
-        fontSize: 18,
-        marginRight: 200,
-      },
-      modalView:{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginTop: 22,
-      },
-      modalBox:{ 
-        marginTop: 22,
-        backgroundColor: 'grey',
-        height: "95%",
-        width: "95%",
-        borderRadius: 20,
-        borderWidth: 2,
-      },
-      modalTop:{
-        flexDirection: 'row',
-        flex: 1,
-        
-      },
-      modalTitle:{
-        fontSize: 30,
-        fontWeight: 'bold',
-        marginTop: 12,
-        marginLeft: "18%",
-      },
-      modalCloseIcon:{
-        marginTop: 10,
-        marginLeft: 20,
-      },
-      modalBot:{
-        flex: 6,
-        
-        alignItems: 'center', 
-      },
-      goalBox:{
-        width: '90%',
-        height: '70%',
-        backgroundColor: '#D3D3D3',
-        borderRadius: 20,
-        marginTop: 40,
-      },
-      modalAccept:{
-        height: 50,
-        width: 150,
-        borderRadius: 20,
-        backgroundColor: '#007FFF',
-        marginTop: 30,
-        alignItems: 'center',
-        borderWidth: 2,
-      },
-      modalAcceptButtonText:{
-        marginTop: 12,
-        fontWeight: 'bold',
-        fontSize: 18,
-      },
-      pickerWrapper:{
-        width: "60%",
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginLeft: '20%',
-        borderBottomLeftRadius: 20,
-      },
-      picker:{
-        marginLeft: 20,
-        width: "60%",
-        fontSize: 18,
-        borderRadius: 20,
-        backgroundColor: 'white'
-      },
-      goalTypeText:{
-        fontSize: 18,
-      },
-      input:{
-        height: 50,
-        backgroundColor: 'white',
-        fontSize: 16,
-        marginRight: 20,
-        flex: 0.7,
-        borderWidth: 2,
-        paddingLeft: 5,
-      },
-      inputContainer:{
-        flexDirection: 'row',
-        
-        alignItems: 'center',
-        marginTop: 50,
-      },
-      textBoxText:{
-        marginLeft: 10,
-        fontSize: 17,
-        flex: 1,
-      },
-    });
+  container: {
+    flex: 1,
+    backgroundColor: '#ececea',
+  },
+  content: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  navBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    height: 80,
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+  },
+  navButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  navButtonText: {
+    fontSize: 12,
+    marginTop: 5,
+  },
+  TopContent: {
+    marginTop: 60,
+    flex: 2,
+    marginBottom: 5,
+    width: "100%",
+    alignItems: 'center',
+  },
+  MidContent: {
+    flex: 4,
+    backgroundColor: "#bdbdc7",
+    borderRadius: 20,
+    width: 300,
+    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#d7d7d8',
+    elevation: 5,
+  },
+  chart: {
+    marginVertical: 10,
+    marginLeft: 5
+  },
+  BottomContent: {
+    flex: 2.5,
+  },
+  BottomGoalBar: {
+    width: 350,
+    margin: 5,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flex: 0.2,
+  },
+  barChartText: {
+    marginRight: 10,
+    marginLeft: 15,
+    marginTop: 2,
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  bottomContentButtons: {
+    width: "95%",
+    flex: 1,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  bottomContentButton: {
+    flex: 1,
+    margin: 30,
+    height: 60,
+    borderWidth: 3,
+    borderRadius: 20,
+    backgroundColor: '#bdbdc7',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    borderColor: '#bcbcc9',
+    elevation: 7
+  },
+  bottomContentButtonText: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  titleText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    paddingBottom: 5,
+    paddingTop: 8
+  },modalView:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
+  modalBox:{ 
+    marginTop: 22,
+    backgroundColor: 'grey',
+    height: "95%",
+    width: "95%",
+    borderRadius: 20,
+    borderWidth: 2,
+  },
+  modalTop:{
+    flexDirection: 'row',
+    flex: 1,
+    
+  },
+  modalTitle:{
+    fontSize: 30,
+    fontWeight: 'bold',
+    marginTop: 12,
+    marginLeft: "18%",
+  },
+  modalCloseIcon:{
+    marginTop: 10,
+    marginLeft: 20,
+  },
+  modalBot:{
+    flex: 6,
+    
+    alignItems: 'center', 
+  },
+  goalBox:{
+    width: '90%',
+    height: '70%',
+    backgroundColor: '#D3D3D3',
+    borderRadius: 20,
+    marginTop: 40,
+  },
+  modalAccept:{
+    height: 50,
+    width: 150,
+    borderRadius: 20,
+    backgroundColor: '#007FFF',
+    marginTop: 30,
+    alignItems: 'center',
+    borderWidth: 2,
+  },
+  modalAcceptButtonText:{
+    marginTop: 12,
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  pickerWrapper:{
+    width: "60%",
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: '20%',
+    borderBottomLeftRadius: 20,
+  },
+  picker:{
+    marginLeft: 20,
+    width: "60%",
+    fontSize: 18,
+    borderRadius: 20,
+    backgroundColor: 'white'
+  },
+  goalTypeText:{
+    fontSize: 18,
+  },
+  input:{
+    height: 50,
+    backgroundColor: 'white',
+    fontSize: 16,
+    marginRight: 20,
+    flex: 0.7,
+    borderWidth: 2,
+    paddingLeft: 5,
+  },
+  inputContainer:{
+    flexDirection: 'row',
+    
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  textBoxText:{
+    marginLeft: 10,
+    fontSize: 17,
+    flex: 1,
+  },
+});
 
 export default HomeScreen;

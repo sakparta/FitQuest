@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import {StatusBar} from 'expo-status-bar';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Image, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Ionicons';
@@ -56,7 +55,7 @@ const LoginScreen = ({navigation}) => {
       <Image source={require('../components/Logo.png')}  style={styles.icon}></Image>
       
       <View style={styles.inputContainer}>
-        <Icon name="envelope" size={20} color="black" style={styles.inputIcon} />
+        <Icon name="envelope" size={20} color={'#505050'} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -65,7 +64,7 @@ const LoginScreen = ({navigation}) => {
         />
       </View>
       <View style={styles.inputContainer}>
-        <Icon name="lock" size={20} color="black" style={styles.inputIcon} />
+        <Icon name="lock" size={20} color={'#505050'} style={styles.inputIcon} />
         <TextInput
           style={styles.input}
           placeholder="Password"
@@ -93,9 +92,9 @@ const LoginScreen = ({navigation}) => {
         transparent={true}
         visible={errorMessageVisible}
         >
-          <View style={styles.erroBox}>
+          <View style={styles.errorBox}>
           <TouchableOpacity onPress={() => setErrorMessageVisible(false)}>
-          <Icon2 name="close" size={35} style={styles.modalCloseIcon} ></Icon2>
+          <Icon2 name="close" size={35} style={styles.modalCloseIcon} color={'#505050'} ></Icon2>
           </TouchableOpacity>
           <View style={styles.textWrapper}>
           <Text style={styles.errorMessage}>
@@ -112,7 +111,7 @@ const LoginScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
+    backgroundColor: "#ececea",
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -129,9 +128,10 @@ const styles = StyleSheet.create({
     width: '80%',
     height: 50,
     margin: 12,
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: 10,
     padding: 10,
+    borderColor: '#505050'
   },
   input: {
     flex: 1,
@@ -165,23 +165,25 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 30,
   }, 
-  erroBox:{
-    backgroundColor: 'grey',
+  errorBox:{
+    backgroundColor: '#bdbdc7',
     borderRadius: 20,
     marginTop: 300,
     marginLeft: 50,
     height: 150,
     width: 300,
     borderWidth: 2,
+    borderColor: '#d7d7d8',
+    elevation: 7
   },
   errorMessage:{
     color: '#8B0000',
     fontWeight: 'bold',
+    fontSize: 24
   },
   modalCloseIcon:{
     marginLeft: 250,
     width: 35,
-
   },
   textWrapper:{
     position: 'absolute',

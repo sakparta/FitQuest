@@ -1,56 +1,69 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Wrapper } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
-import FontistoIcon from 'react-native-vector-icons/Fontisto';
+import Icon4 from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const WorkoutCard = ({title, time, icon}) => {
-    return (
-        <View style={styles.WorkoutBox}>
-        <Icon2 name={icon} size={100} style={styles.WorkoutBoxIcon}/>
-        <View style={styles.WorkoutBoxText}>
-          <Text style={styles.titleWorkoutBox}>{title}</Text>
-          <Text marginTop={5}>{time}</Text>
+const WorkoutCard = ({ title, time, icon }) => {
+  return (
+    <View style={styles.workoutBox}>
+      <View style={styles.iconBox}>
+        <Icon4 name={icon} color={'#505050'} size={70} />
       </View>
+      <View style={styles.workoutBoxTextView}>
+        <Text style={styles.titleText}>{title}</Text>
+        <Text style={styles.descriptionText}>{time}</Text>
+      </View>
+      <View style={styles.workoutEditIcon}>
         <TouchableOpacity>
-            <Icon2 name="edit" size={50} style={styles.WorkoutBoxEdit}/>
+          <Icon2 name="edit" color={'#505050'} size={50}/>
         </TouchableOpacity>
       </View>
-    );
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
-    WorkoutBox: {
-      height: 140,
-      width: 350,
-      backgroundColor: "#bdbdc7",
-      borderRadius: 35,
-      margin: 10,
-      flexDirection: 'row',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      borderWidth: 1,
-      borderColor: '#bdbdc7',
-      elevation: 10,
-      shadowColor: '#505050',
-      },
-      WorkoutBoxIcon: {
-        marginTop: 20,
-        
-      },
-    WorkoutBoxText:{
-        marginTop: 30,
-        fontWeight: 'bold',
-        fontSize: 15,
-        
-      },
-      WorkoutBoxEdit: {
-        marginTop: 50,
-      },
-      titleWorkoutBox: {
-        fontWeight: 'bold',
-        fontSize: 19,
-      },
-
+  workoutBox: {
+    height: 140,
+    width: 350,
+    backgroundColor: "#bdbdc7",
+    borderRadius: 35,
+    margin: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#bdbdc7',
+    elevation: 10,
+    shadowColor: '#505050',
+  },
+  workoutEditIcon: {
+    flex: 2,
+    borderRadius: 50,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  workoutBoxTextView: {
+    flex: 5,
+    justifyContent: 'flex-start',
+    height: 70
+  },
+  WorkoutBoxEdit: {
+    flex: 2,
+    borderRadius: 50,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    paddingTop: 8
+  },
+  iconBox: {
+    flex: 3
+  },
+  descriptionText: {
+    color: '#656566',
+  },
 });
 export default WorkoutCard;

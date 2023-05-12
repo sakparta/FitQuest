@@ -1,35 +1,47 @@
-import React, {useState} from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Modal, TextInput, Button} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Modal, TextInput } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
-import { BarChart } from 'react-native-chart-kit';
-import {Picker} from '@react-native-picker/picker';
-
+import { LineChart } from 'react-native-chart-kit';
+import { Picker } from '@react-native-picker/picker';
+import { db } from '../firebase/firebase';
+/*
+todo:
+  -Barchartista klikattava
+  -Modalille rullavalikko
+  -navbaarista klikattava kun modal on auki
+*/
 
 const screenWidth = Dimensions.get("window").width;
 
+const handleCalorieGoal = () => {
 
-
+}
 
 
 
 
 //barchartin style
 const chartConfig = {
-  backgroundGradientFrom: '#D3D3D3',
-  backgroundGradientTo: '#D3D3D3',
-  fillShadowGradientOpacity: 1,
-  backgroundGradientToOpacity: 0.5,
-  color: (opacity = 6) => `rgba(0, 0, 255, ${opacity})`,
-  strokeWidth: 0, // optional, default 3
-  barPercentage: 1.5,
-  useShadowColorFromDataset: false, // optional
-  barRadius: 5,
-  showBarTops: false, 
+  backgroundColor: "#8cbbf1",
+  backgroundGradientFrom: "#bdbdc7",
+  backgroundGradientTo: "#bdbdc7",
+  decimalPlaces: 0, // optional, defaults to 2dp
+  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+  style: {
+    borderRadius: 40
+  },
+  propsForDots: {
+    r: "6",
+    strokeWidth: "2",
+    stroke: "#8cbbf1"
+  }
 };
 
 
-const MealsScreen = ({navigation}) => {
+const MealsScreen = ({ navigation }) => {
+
   const [modalVisible, setIsModalVisible] = useState(false);
   const [calorieGoal, setcalorieGoal] = useState('No goal');
   const [logMealModalVisible, setLogMealModalVisible] = useState(false);
@@ -40,25 +52,23 @@ const MealsScreen = ({navigation}) => {
 
   const [calorieDiscrepancy, setCalorieDiscrepancy] = useState(0)
 
-  
-
   const confirmMeal = () =>{
     setLogMealModalVisible(false)
     temp = calorieGoal - dailyCalorie
     setCalorieDiscrepancy(temp)
   }
-  const barData = {
-    labels: [day + " " + month, ],
+  const Data = {
+    labels: ['25 Mar', '26 Mar', '27 Mar'],
     datasets: [
       {
-        data: [dailyCalorie],
+        data: [3000, 2200, 2500],
       },
     ],
   };
 
-
+  
   return (
-  <View style={styles.container}>
+    <View style={styles.container}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -67,49 +77,50 @@ const MealsScreen = ({navigation}) => {
           Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
         }}>
-      <View style={styles.modalView}>
-        <View style={styles.modalBox}>
-          <View style={styles.modalTop}>
-          <TouchableOpacity onPress={() => setIsModalVisible(false)}>
-          <Icon2 name="close" size={40} style={styles.modalCloseIcon} ></Icon2>
-          </TouchableOpacity>
-          <Text style={styles.modalTitle}>Set calorie goal</Text>
-        </View>
-        <View style={styles.modalBot}>
-          <View style={styles.scrollwheelBox}>
-            <Picker
-              selectedValue={calorieGoal}
-              
-              onValueChange={(itemValue, itemIndex) =>
-                setcalorieGoal(itemValue)
-              }>
-              <Picker.Item label="2750" value="2750" />
-              <Picker.Item label="2700" value="2700" />
-              <Picker.Item label="2650" value="2650" />
-              <Picker.Item label="2600" value="2600" />
-              <Picker.Item label="2550" value="2550" />
-              <Picker.Item label="2450" value="2450" />
-              <Picker.Item label="2400" value="2400" />
-              <Picker.Item label="2350" value="2350" />
-              <Picker.Item label="2300" value="2300" />
-              <Picker.Item label="2250" value="2250" />
-              <Picker.Item label="2200" value="2200" />
-              <Picker.Item label="2150" value="2150" />
-              <Picker.Item label="2100" value="2100" />
-              <Picker.Item label="2050" value="2050" />
-              <Picker.Item label="2000" value="2000" />
-
-            </Picker>
+        <View style={styles.modalView}>
+          <View style={styles.modalBox}>
+            <View style={styles.modalTop}>
+              <Text style={styles.modalTitle}>Set Calorie Goal</Text>
+              <TouchableOpacity onPress={() => setIsModalVisible(false)}>
+                <Icon2 name="close" size={40} style={styles.modalCloseIcon} color={'#505050'} ></Icon2>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.modalBot}>
+              <View style={styles.scrollwheelBox}>
+                <Picker
+                  selectedValue={calorieGoal}
+                  onValueChange={(itemValue, itemIndex) =>
+                    setcalorieGoal(itemValue)
+                  }>
+                  <Picker.Item label="2750" value="2750" />
+                  <Picker.Item label="2700" value="2700" />
+                  <Picker.Item label="2650" value="2650" />
+                  <Picker.Item label="2600" value="2600" />
+                  <Picker.Item label="2550" value="2550" />
+                  <Picker.Item label="2450" value="2450" />
+                  <Picker.Item label="2400" value="2400" />
+                  <Picker.Item label="2350" value="2350" />
+                  <Picker.Item label="2300" value="2300" />
+                  <Picker.Item label="2250" value="2250" />
+                  <Picker.Item label="2200" value="2200" />
+                  <Picker.Item label="2150" value="2150" />
+                  <Picker.Item label="2100" value="2100" />
+                  <Picker.Item label="2050" value="2050" />
+                  <Picker.Item label="2000" value="2000" />
+                </Picker>
+              </View>
+              <View>
+              <TouchableOpacity style={styles.modalAccept} onPress={() => setIsModalVisible(false)}>
+                <Text style={styles.modalAcceptButtonText}>Confirm</Text>
+              </TouchableOpacity>
+              </View>
+            </View>
           </View>
-          <TouchableOpacity style={styles.modalAccept} onPress={() => setIsModalVisible(false)}>
-              <Text style={styles.modalAcceptButtonText}>Confirm</Text>
-          </TouchableOpacity>
         </View>
-        </View>
-      </View>
-    </Modal>
+      </Modal>
+      
 
-    <Modal
+      <Modal
         animationType="slide"
         transparent={true}
         visible={logMealModalVisible}
@@ -213,90 +224,118 @@ const MealsScreen = ({navigation}) => {
 
 
 
-
-
-
-
-
-
-
-    <View style={styles.content}>
-      <View style={styles.TopContent}>
-            <View style={styles.Topbuttons}>
-              <View style={styles.leftButton}>
-                <View style={styles.boxText}>
-                <Text style={styles.calorieTop}>{calorieGoal}</Text>
+      <View style={styles.content}>
+        <View style={styles.TopContent}>
+          <View>
+            <Text style={styles.screenTitle}>Meals</Text>
+          </View>
+          <View style={styles.Topbuttons}>
+            <View style={styles.leftButton}>
+              <View style={styles.boxText}>
+                <View style={styles.unitBox}>
+                  <Text style={styles.calorieUnitText}>{calorieGoal}</Text>
+                </View>
                 <Text style={styles.calorieGoalTop}>Daily calorie Goal</Text>
-                </View>
-                <TouchableOpacity style={styles.boxIconEdit} onPress={() => setIsModalVisible(true)}>
-                <Icon2 name="edit" size={40} style={styles.WorkoutBoxEdit} ></Icon2>
-                </TouchableOpacity>
               </View>
-              <View style={styles.rightButton}>
-                <View style={styles.boxText}>
-                <Text style={styles.logMealText}>Log Meal</Text>
-                </View>
-                <TouchableOpacity style={styles.boxIconPlus} onPress={() => setLogMealModalVisible(true)}>
-                <Icon2 name="plus" size={40} style={styles.WorkoutBoxEdit}></Icon2>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity style={styles.boxIconEdit} onPress={() => setIsModalVisible(true)}>
+                <Icon2 name="edit" size={40} style={styles.WorkoutBoxEdit} color={'#505050'} ></Icon2>
+              </TouchableOpacity>
             </View>
-      </View>
+            <TouchableOpacity style={styles.rightButton} onPress={() => setLogMealModalVisible(true)}>
+              <Text style={styles.logMealText}>Log Meal</Text>
+              <Icon2 name="plus" size={40} style={styles.WorkoutBoxEdit} color={'#505050'}></Icon2>
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.titleText}>Meal Timeline</Text>
+        </View>
         <View style={styles.MidContent}>
-          <View style={styles.Chart}>
-          <BarChart
-            data={barData}
-            width={330}
-            height={220}
-            chartConfig={chartConfig}
-            withInnerLines={false}
-            withHorizontalLabels={false}
-            fromZero={true}
-            showBarTops={false}
-          />
+          <View style={styles.chart}>
+            <LineChart
+              data={Data}
+              chartConfig={chartConfig}
+              bezier
+              height={250}
+              width={350}
+            />
           </View>
         </View>
         <View style={styles.BottomContent}>
-            <View style={styles.bottomContentTextleft}>
+          <View style={styles.bottomContentTextTop}>
             <Text style={styles.dataText}>{day} {month}</Text>
-            <Text style={styles.calorie}>{dailyCalorie}</Text>
-            <Text style={styles.calorieText}>Calorie intake</Text>
+          </View>
+          <View style={styles.bottomContentTextBot}>
+            <View style={styles.dietInfo}>
+              <View style={styles.unitBox}>
+                <Text style={styles.calorieUnitText}>{dailyCalorie} kcal</Text>
+              </View>
+              <Text style={styles.calorieText}>Calorie intake</Text>
             </View>
-            <View style={styles.bottomContentTextright}>
-            <Text style={styles.calorieDis}>{calorieDiscrepancy} kcal</Text>
-            <Text style={styles.calorieText}>calorie discrepancy</Text>
+            <View style={styles.dietInfo}>
+              <View style={styles.unitBox}>
+                <Text style={styles.calorieUnitText}>{calorieDiscrepancy} kcal</Text>
+              </View>
+              <Text style={styles.calorieText}>Calorie Discrepancy</Text>
             </View>
-            
-            
+          </View>
+
+
         </View>
       </View>
-        <View style={styles.navBar}>
-            <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Home")}>
-                <Icon name="home-outline" size={30} color="black"  />
-                <Text style={styles.navButtonText}>Home</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Workouts")}>
-                <Icon name="fitness-outline" size={30} color="black" />
-                <Text style={styles.navButtonText}>Workouts</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Meals")}>
-                <Icon name="fast-food" size={40} color="black" />
-                <Text style={styles.navButtonText}>Meals</Text>
-            </TouchableOpacity>
+      <View style={styles.navBar}>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Home")}>
+          <Icon name="home-outline" size={30} color="#505050" />
+          <Text style={styles.navButtonText}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Workouts")}>
+          <Icon name="fitness-outline" size={30} color="#505050" />
+          <Text style={styles.navButtonText}>Workouts</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("Meals")}>
+          <Icon name="fast-food" size={40} color="#8cbbf1" />
+          <Text style={styles.navButtonText}>Meals</Text>
+        </TouchableOpacity>
+      </View>
     </View>
-  </View>
   );
-  
+
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#ececea',
   },
   content: {
     flex: 1,
     alignItems: 'center',
+  },
+  TopContent: {
+    flex: 3,
+    width: "100%",
+    alignItems: 'center',
+  },
+  MidContent: {
+    flex: 3,
+    backgroundColor: "#bdbdc7",
+    borderRadius: 20,
+    width: '95%',
+    marginBottom: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    elevation: 3,
+    borderWidth: 1,
+    borderColor: '#d7d7d8',
+  },
+  BottomContent: {
+    flex: 2,
+    backgroundColor: "#bdbdc7",
+    alignItems: 'center',
+    borderRadius: 20,
+    width: '95%',
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: '#d7d7d8',
+    elevation: 3
   },
   navBar: {
     flexDirection: 'row',
@@ -306,7 +345,11 @@ const styles = StyleSheet.create({
     height: 80,
     borderTopWidth: 1,
     borderTopColor: '#ccc',
-    
+  },
+  titleText: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    marginBottom: 6,
   },
   navButton: {
     justifyContent: 'center',
@@ -317,174 +360,155 @@ const styles = StyleSheet.create({
     color: 'black',
     marginTop: 5,
   },
-  TopContent:{
-    marginTop: 30,
+  dietInfo: {
     flex: 1,
-    marginBottom: 5,
-    width: "100%",
     alignItems: 'center',
   },
-  Topbuttons:{
+  unitBox: {
+    backgroundColor: '#d7d7d8',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    width: 120,
+    height: 35,
+    borderColor: '#cbc9d6',
+    borderWidth: 2,
+  },
+  Topbuttons: {
     width: "95%",
     flex: 1,
     alignItems: 'center',
     flexDirection: 'row',
-    
   },
-  leftButton:{
+  leftButton: {
     flex: 1.5,
-    marginTop: 50,
-    height: '50%',
-    borderWidth: 2,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: '60%',
     marginRight: 20,
-    borderRadius: 20,
-    flexDirection: 'row',
-  },
-  rightButton:{
-    flex: 1,
     borderWidth: 2,
-    height: '50%',
     borderRadius: 20,
-    marginTop: 50,
     flexDirection: 'row',
+    borderWidth: 3,
+    borderRadius: 20,
+    backgroundColor: '#bdbdc7',
+    borderColor: '#bcbcc9',
+    elevation: 7,
   },
-  calorieTop:{
-    fontWeight: 'bold',
-    fontSize: 20,
-    marginTop: 20,
-    marginLeft: 20,
+  rightButton: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    height: '60%',
+    flexDirection: 'row',
+    borderWidth: 3,
+    borderRadius: 20,
+    backgroundColor: '#bdbdc7',
+    borderColor: '#bcbcc9',
+    elevation: 7
   },
-  calorieGoalTop:{
+  calorieGoalTop: {
     fontWeight: 'bold',
     fontSize: 13,
-    marginTop: 15,
-    marginLeft: 20,
   },
-  boxIconEdit:{
-    marginTop: 25,
-    marginLeft: 20,
-  },
-  boxIconPlus:{
-    marginTop: 25,
-    marginLeft: 10,
-  },
-  logMealText:{
-    marginTop: 32,
+  logMealText: {
     marginLeft: 5,
     fontWeight: 'bold',
-    fontSize: 17,
+    fontSize: 18,
   },
-  MidContent:{
-    flex: 1.5,
-    backgroundColor: "#D3D3D3",
-    borderRadius: 20,
-    width: '95%',
-    marginBottom: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
+  chart: {
+    marginTop: 15,
+    marginLeft: 5
   },
-  Chart:{
-    marginTop: 40,
-  },
-  BottomContent:{
-    flex: 0.7,
-    backgroundColor: "grey",
-    borderRadius: 20,
-    width: '95%',
-    marginBottom: 10,
-    borderWidth: 2,
-    flexDirection: 'row',
-    
-  },
-  bottomContentTextleft:{
+  bottomContentTextTop: {
     flex: 1,
     alignItems: 'center',
+    borderBottomWidth: 2,
+    borderColor: '#cbc9d6',
+    width: '90%',
   },
-  bottomContentTextright:{
-    flex: 1,
-    
+  bottomContentTextBot: {
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  dataText:{
+  screenTitle: {
+    fontSize: 34,
+    fontWeight: 'bold',
+    marginTop: 40
+  },
+  dataText: {
     fontSize: 25,
     marginTop: 10,
     fontWeight: 'bold',
   },
-  calorie:{
-    fontWeight: 'bold',
-    fontSize: 17,
-    marginTop: 10,
+  calorieText: {
+    fontWeight: '800',
+    fontSize: 16,
   },
-  calorieDis:{
-    fontWeight: 'bold',
-    fontSize: 17,
-    marginTop: 53,
+  calorieUnitText: {
+    fontWeight: '600',
+    fontSize: 18,
   },
-  calorieText:{
-    fontSize: 15,
-    marginTop: 10,
-  },
-  modalView:{
+  modalView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 22,
   },
-  modalBox:{ 
-    marginTop: 22,
-    backgroundColor: 'grey',
-    height: "60%",
-    width: "95%",
-    borderRadius: 20,
+  modalBox: {
+    flex: 0.6,
+    width: "90%",
+    borderRadius: 60,
+    backgroundColor: '#e7e7e5',
     borderWidth: 2,
+    borderColor: '#ebebea',
+    padding: 5,
+    elevation: 10,
+    shadowColor: '#505050'
   },
-  modalTop:{
+  modalTop: {
     flexDirection: 'row',
     flex: 1,
-    
+
   },
-  modalTitle:{
+  modalTitle: {
     fontSize: 30,
     fontWeight: 'bold',
     marginTop: 12,
     marginLeft: 40,
   },
-  modalTitleWrapper:{
-    alignItems: 'center',
-    flex: 1,
-    marginRight: 85,
+  modalCloseIcon: {
+    marginTop: 13,
+    marginLeft: 14,
   },
-  modalCloseIcon:{
-    marginTop: 10,
-    marginLeft: 20,
-  },
-  modalBot:{
+  modalBot: {
     flex: 6,
-    
-    alignItems: 'center', 
+
+    alignItems: 'center',
   },
-  scrollwheelBox:{
+  scrollwheelBox: {
     width: '60%',
     height: '60%',
-    backgroundColor: '#D3D3D3',
     borderRadius: 20,
     marginTop: 40,
   },
-  modalAccept:{
-    height: 50,
-    width: 150,
+  modalAccept: {
+    margin: 30,
+    height: 60,
+    width: 110,
+    borderWidth: 3,
     borderRadius: 20,
-    backgroundColor: '#D3D3D3',
-    marginTop: 30,
+    backgroundColor: '#bdbdc7',
     alignItems: 'center',
-    borderWidth: 2,
-    marginTop: 40,
+    justifyContent: 'center',
+    borderColor: '#bcbcc9',
+    elevation: 7
   },
-  modalAcceptButtonText:{
-    marginTop: 12,
-    fontWeight: 'bold',
+  modalAcceptButtonText: {
+    fontWeight: '800',
     fontSize: 18,
-
   },
   input:{
     height: 50,
@@ -512,12 +536,15 @@ const styles = StyleSheet.create({
     width: "60%",
   },
   modalLogMealBox:{ 
-    marginTop: 22,
-    backgroundColor: 'grey',
-    height: "70%",
-    width: "95%",
-    borderRadius: 20,
+    flex: 0.7,
+    width: "90%",
+    borderRadius: 60,
+    backgroundColor: '#e7e7e5',
     borderWidth: 2,
+    borderColor: '#ebebea',
+    padding: 5,
+    elevation: 10,
+    shadowColor: '#505050'
   },
 });
 
