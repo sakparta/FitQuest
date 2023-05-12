@@ -1,7 +1,10 @@
 # FitQuest
 
-Kyseessä on mobiililaitteille tarkoitettu Fitness Tracker –sovellus, jonka tarkoituksena on tarjota tavoitteellisuutta käyttäjiensä hyvinvointitaipaleelleen. Sovellus tarjoaa käyttäjälle valmiita treeniohjelmia, joita voi seurata haluamallaan tarkkuudella, ja mahdollisuuden ajoittaa aktiviteetit hänelle sopivaan aikataulutukseen.  
 
-Sovellus mahdollistaa kalorikulutuksen ja tavoitteiden kehityksen seuraamisen, mikäli käyttäjä jaksaa päivittää tietojansa sovellukseen tasaisin väliajoin.  
+This is a Fitness Tracker app designed for mobile devices, with the purpose of providing users with goal-oriented support on their wellness journey. 
+The app offers users pre-made workout programs that they can follow with the desired level of accuracy and the ability to schedule their activities at a suitable time.
 
-Tarkoituksenamme on rakentaa sovellus, johon ei tarvita erityisosaamista taikka urheilutaustaa sitä käyttääkseen. Pyrimme saavuttamaan tämän tavoitteen noudattamalla hyviä käyttöliittymäsuunnittelun periaatteita ja asiayhteyden ymmärtämällä
+The app allows users to track their calorie expenditure and goal progress, provided that they update their information regularly within the app.
+
+Our goal is to build an app that does not require any special expertise or athletic background to use.
+We aim to achieve this goal by following good principles of user interface design and understanding the context of use.
